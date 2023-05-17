@@ -168,6 +168,9 @@ export default {
     },
 
     setting: {
+      isEeventUpdateOtherComp: '触发关联组件更新',
+      eventUpdateOtherComp: '关联组件',
+      eventUpdateOtherCompHelp: '当前组件的某个行为触发其他关联组件的数据更新',
       basicSetting: '基本属性',
       attributeSetting: '属性设置',
       commonSetting: '常见属性',

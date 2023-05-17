@@ -1,7 +1,10 @@
 .DS_Store
 node_modules
 /dist
-
+/dist0/
+/dist2
+/release-zip
+.VSCodeCounter
 
 # local env files
 .env.local
@@ -21,3 +24,7 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+/package-lock.json
+/*.zip
+variant-form-pro.iml
+variant-form-pro*.zip

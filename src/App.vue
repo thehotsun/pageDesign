@@ -1,27 +1,48 @@
 <template>
-  <div class="pageDesign">
-    <pageDesigner ref="vfDesignerRef">
-    </pageDesigner>
+  <div id="app">
+    <VFormDesigner ref="vfDesignerRef" :designer-config="designerConfig" :global-dsv="globalDsv">
+      <!--
+      <template #customToolButtons>
+        <el-button type="text" @click="doTest">测试btn</el-button>
+      </template>
+      -->
+    </VFormDesigner>
   </div>
 </template>
 
 <script>
-import pageDesigner from './components/page-designer/index.vue'
+import VFormDesigner from './components/form-designer/index.vue'
+
 export default {
   name: 'App',
   components: {
-    pageDesigner
+    VFormDesigner,
+  },
+  data() {
+    return {
+      designerConfig: {
+        //logoHeader: false,
+        //toolbarMaxWidth: 510
+      },
+
+      //全局数据源变量
+      globalDsv: {
+        testApiHost: 'http://www.test.com/api',
+        testPort: 8080,
+      },
+    }
+  },
+  methods: {
+    doTest() {
+      let fieldList = this.$refs.vfDesignerRef.getFieldWidgets(null, true)
+      console.log('test', fieldList)
+    }
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style lang="scss">
+  #app {
+    height: 100%;
+  }
 </style>

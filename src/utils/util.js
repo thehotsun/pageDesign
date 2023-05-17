@@ -1,4 +1,5 @@
 import Clipboard from 'clipboard'
+import axios from 'axios'
 
 export function isNull(value) {
   return (value === null) || (value === undefined);
@@ -568,6 +569,8 @@ function buildRequestConfig(dataSource, DSV, VFR, isSandbox) {
 export async function runDataSourceRequest(dataSource, DSV, VFR, isSandbox, $message) {
   try {
     let requestConfig = buildRequestConfig(dataSource, DSV, VFR, isSandbox)
+    let result = await axios.request(requestConfig)
+    //let result = await axios.create().request(requestConfig)
 
     let dhFn = new Function('result', 'isSandbox', 'DSV', 'VFR', dataSource.dataHandlerCode)
     return dhFn.call(null, result, isSandbox, DSV, VFR)
