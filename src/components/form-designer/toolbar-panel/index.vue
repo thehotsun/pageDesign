@@ -13,16 +13,16 @@
         <el-button :type="layoutType === 'H5' ? 'info': ''" @click="changeLayoutType('H5')">
           {{i18nt('designer.toolbar.mobileLayout')}}</el-button>
       </el-button-group>
-      <el-button type="" style="margin-left: 20px" :title="i18nt('designer.toolbar.nodeTreeHint')" @click="showNodeTreeDrawer">
-        <svg-icon icon-class="node-tree" /></el-button>
+      <!-- <el-button type="" style="margin-left: 20px" :title="i18nt('designer.toolbar.nodeTreeHint')" @click="showNodeTreeDrawer">
+        <svg-icon icon-class="node-tree" /></el-button> -->
     </div>
 
-    <el-drawer :title="i18nt('designer.toolbar.nodeTreeTitle')" direction="ltr" :visible.sync="showNodeTreeDrawerFlag"
+    <!-- <el-drawer :title="i18nt('designer.toolbar.nodeTreeTitle')" direction="ltr" :visible.sync="showNodeTreeDrawerFlag"
                :modal="false" :size="280" append-to-body
                :destroy-on-close="true" class="node-tree-drawer">
       <el-tree ref="nodeTree" :data="nodeTreeData" node-key="id" default-expand-all highlight-current class="node-tree"
                icon-class="el-icon-arrow-right" @node-click="onNodeTreeClick"></el-tree>
-    </el-drawer>
+    </el-drawer> -->
 
     <div class="right-toolbar">
       <div class="right-toolbar-con">
@@ -34,10 +34,10 @@
           {{i18nt('designer.toolbar.importJson')}}</el-button>
         <el-button v-if="showToolButton('exportJsonButton')" type="text" @click="exportJson">
           {{i18nt('designer.toolbar.exportJson')}}</el-button>
-        <el-button v-if="showToolButton('exportCodeButton')" type="text" @click="exportCode">
+        <!-- <el-button v-if="showToolButton('exportCodeButton')" type="text" @click="exportCode">
           {{i18nt('designer.toolbar.exportCode')}}</el-button>
         <el-button v-if="showToolButton('generateSFCButton')" type="text" @click="generateSFC">
-          <svg-icon icon-class="vue-sfc" />{{i18nt('designer.toolbar.generateSFC')}}</el-button>
+          <svg-icon icon-class="vue-sfc" />{{i18nt('designer.toolbar.generateSFC')}}</el-button> -->
         <template v-for="(idx, slotName) in $slots">
           <slot :name="slotName"></slot>
         </template>
