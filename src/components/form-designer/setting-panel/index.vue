@@ -11,6 +11,7 @@
                 <el-collapse-item name="1" v-if="showCollapse(commonProps)"
                   :title="i18nt('designer.setting.commonSetting')">
                   <template v-for="(editorName, propName) in commonProps">
+                    sd
                     <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
                       :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
                   </template>
@@ -19,7 +20,8 @@
                 <el-collapse-item name="2" v-if="showCollapse(advProps)"
                   :title="i18nt('designer.setting.advancedSetting')">
                   <template v-for="(editorName, propName) in advProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
+
+                    ff <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
                       :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
                   </template>
                 </el-collapse-item>
@@ -27,6 +29,7 @@
                 <el-collapse-item name="3" v-if="showEventCollapse() && showCollapse(eventProps)"
                   :title="i18nt('designer.setting.eventSetting')">
                   <template v-for="(editorName, propName) in eventProps">
+                    sddd
                     <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
                       :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"
                       :event-handled="getEventHandled(propName)"></component>
@@ -130,6 +133,7 @@ export default {
     return {
       isSubFormChildWidget: () => this.subFormChildWidgetFlag,
       getGlobalDsv: () => this.globalDsv, // 全局数据源变量
+      getWidgetList: () => this.designer.widgetList
     }
   },
   inject: ['getDesignerConfig'],

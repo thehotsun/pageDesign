@@ -5,7 +5,7 @@
         <i class="el-icon-info"></i></el-tooltip>
     </span>
     <el-select v-model="optionModel.eventUpdateOtherComp" filterable clearable allow-create default-first-option multiple>
-      <el-option v-for="(fv, fvIdx) in otherCompList" :key="fvIdx" :label="fv.label" :value="fv.value">
+      <el-option v-for="(fv) in otherCompList" :key="fv.value" :label="fv.label" :value="value">
       </el-option>
     </el-select>
   </el-form-item>
@@ -15,28 +15,34 @@
 import i18n from "@/utils/i18n"
 
 export default {
-  name: "validation-editor",
+  name: "eventUpdateOtherComp-editor",
   mixins: [i18n],
   props: {
     designer: Object,
     selectedWidget: Object,
     optionModel: Object,
   },
-  inject: ['refList', 'getDesignerConfig'],
+  inject: ['getWidgetList'],
   data () {
     return {
-      otherCompList: []
     }
   },
-
   computed: {
     otherCompList () {
-      if (this.refList?.length) {
-        return Object.keys(this.refList).filter(name => /^(dynamictable|dynamicform).*/g.test(name))
-      }
-      return []
+      const widgetList = this.getWidgetList() || []
+      const list = []
+      widgetList?.map(item => {
+        if (/^(dynamictable|dynamicform).*/g.test(item.id)) {
+          list.push({
+            value: item.id,
+            label: `${item.priorName}(${item.id})`
+          })
+        }
+      })
+      return list
     }
   }
+
 }
 </script>
 

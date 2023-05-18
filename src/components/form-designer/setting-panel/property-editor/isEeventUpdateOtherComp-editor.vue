@@ -8,7 +8,7 @@
 import i18n from "@/utils/i18n"
 
 export default {
-  name: "readonly-editor",
+  name: "isEeventUpdateOtherComp-editor",
   mixins: [i18n],
   props: {
     designer: Object,

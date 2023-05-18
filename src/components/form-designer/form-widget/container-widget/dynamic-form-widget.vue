@@ -1,0 +1,91 @@
+<template>
+  <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
+    :index-of-parent-list="indexOfParentList">
+
+    <div class="table-container" :class="[selected ? 'selected' : '', customClass]" @click.stop="selectWidget(widget)">
+      <el-input></el-input>
+    </div>
+
+  </container-wrapper>
+</template>
+
+<script>
+import i18n from "@/utils/i18n"
+import containerMixin from "@/components/form-designer/form-widget/container-widget/containerMixin"
+import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-wrapper"
+import TableCellWidget from "@/components/form-designer/form-widget/container-widget/table-cell-widget"
+import refMixinDesign from "@/components/form-designer/refMixinDesign"
+
+export default {
+  name: "dynamic-form-widget",
+  componentName: 'ContainerWidget',
+  mixins: [i18n, containerMixin, refMixinDesign],
+  inject: ['refList'],
+  components: {
+    ContainerWrapper,
+    TableCellWidget,
+  },
+  props: {
+    widget: Object,
+    parentWidget: Object,
+    parentList: Array,
+    indexOfParentList: Number,
+    designer: Object,
+  },
+  computed: {
+    selected () {
+      return this.widget.id === this.designer.selectedId
+    },
+
+    customClass () {
+      return this.widget.options.customClass || ''
+    },
+
+  },
+  watch: {
+    //
+  },
+  created () {
+    this.initRefList()
+  },
+  mounted () {
+    //
+  },
+  methods: {
+
+
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+div.table-container {
+  padding: 5px;
+  border: 1px dashed #336699;
+  box-sizing: border-box;
+
+  table.table-layout {
+    width: 100%;
+    text-align: center;
+    //border: 1px solid #c8ebfb;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    ::v-deep td {
+      height: 48px;
+      border: 1px dashed #336699;
+      padding: 3px;
+      display: table-cell;
+    }
+
+    .form-widget-list {
+      border: 1px dashed #336699;
+      min-height: 36px;
+    }
+  }
+}
+
+.table-container.selected {
+  outline: 2px solid $--color-primary !important;
+}
+</style>

@@ -5,10 +5,9 @@ import Vue from 'vue'
  */
 const COMMON_PROPERTIES = {
   //字段
+  name: 'name-editor',
   isEventUpdateOtherComp: 'isEeventUpdateOtherComp-editor',
   eventUpdateOtherComp: 'eventUpdateOtherComp-editor',
-  // eventUpdateParams: 'eventUpdateOtherComp-editor',
-  name: 'name-editor',
   label: 'label-editor',
   labelAlign: 'labelAlign-editor',
   type: 'type-editor',

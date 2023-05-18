@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <VFormDesigner ref="vfDesignerRef" :designer-config="designerConfig" :global-dsv="globalDsv">
+    <VFormDesigner ref="vfDesignerRef" :global-dsv="globalDsv">
       <!--
       <template #customToolButtons>
         <el-button type="text" @click="doTest">测试btn</el-button>
@@ -20,10 +20,6 @@ export default {
   },
   data() {
     return {
-      designerConfig: {
-        //logoHeader: false,
-        //toolbarMaxWidth: 510
-      },
 
       //全局数据源变量
       globalDsv: {

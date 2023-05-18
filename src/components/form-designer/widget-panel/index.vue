@@ -23,7 +23,7 @@
                 :move="checkFieldMove" :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
                 <li v-for="(fld, index) in tableList" :key="index" class="field-widget-item" :title="fld.displayName"
                   @dblclick="addFieldByDbClick(fld)">
-                  <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{ getWidgetLabel(fld) }}</span>
+                  <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{ fld.priorName }}</span>
                 </li>
               </draggable>
             </el-collapse-item>
@@ -33,7 +33,7 @@
                 :move="checkFieldMove" :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
                 <li v-for="(fld, index) in formList" :key="index" class="field-widget-item" :title="fld.displayName"
                   @dblclick="addFieldByDbClick(fld)">
-                  <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{ getWidgetLabel(fld) }}</span>
+                  <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{ fld.priorName }}</span>
                 </li>
               </draggable>
             </el-collapse-item>
@@ -84,8 +84,8 @@ export default {
       designerConfig: this.getDesignerConfig(),
       firstTab: 'componentLib',
       activeNames: ['1', '2', '3', '4'],
-      tableList: [],
-      formList: [],
+      tableList: [{ type: "dynamic-table", icon: "table", category: "container", priorName: "动态列表", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }],
+      formList: [{ type: "dynamic-form", icon: 'sub-form', category: "container", priorName: "动态表单", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }],
       containers,
     }
   },
@@ -112,15 +112,15 @@ export default {
     convartTableList (list) {
       const options = []
       list.map(item => {
-        const option = { type: "dynamicTable", icon: "table", category: "container", displayName: "动态列表", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: false, } }
-        option.a = item.a
+        const option = { type: "dynamic-table", icon: "table", category: "container", displayName: "动态列表", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
+        option.priorName = item.groupName
+        option.pageId = item.groupID
         options.push(option)
       })
       return options
     },
     async getFormList () {
       if (this.queryFormList) {
-
         const res = await this.queryFormList(this.groupId)
         this.formList = this.convartFormList(res.data)
       } else {
@@ -130,7 +130,6 @@ export default {
 
     async getTableList () {
       if (this.queryTableList) {
-
         const res = await this.queryTableList(this.groupId)
         this.tableList = this.convartTableList(res.data)
       } else {
