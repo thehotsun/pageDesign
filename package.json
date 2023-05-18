@@ -5,8 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve --open src/main.js",
     "build": "vue-cli-service build --report --dest dist/build",
-    "lib": "vue-cli-service build --report --target lib --dest dist/lib --name VFormDesigner install.js",
-    "lib-render": "vue-cli-service build --report --target lib --dest dist/lib-render --name VFormRender install-render.js",
+    "lib": "vue-cli-service build --report --target lib --dest dist/lib --name pageDesigner install.js",
+    "lib-render": "vue-cli-service build --report --target lib --dest dist/lib-render --name pageDesigner install-render.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
