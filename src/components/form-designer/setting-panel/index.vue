@@ -11,7 +11,6 @@
                 <el-collapse-item name="1" v-if="showCollapse(commonProps)"
                   :title="i18nt('designer.setting.commonSetting')">
                   <template v-for="(editorName, propName) in commonProps">
-                    sd
                     <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
                       :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
                   </template>
@@ -247,7 +246,7 @@ export default {
     getPropEditor (propName, editorName) {
       let originalPropName = propName.replace(this.selectedWidget.type + '-', '')  //去掉组件名称前缀-，如果有的话！！
       let ownPropEditorName = `${this.selectedWidget.type}-${originalPropName}-editor`
-      //console.log(ownPropEditorName, this.$options.components[ownPropEditorName])
+      console.log(originalPropName, ownPropEditorName, this.$options.components[ownPropEditorName], !!this.$root.$options.components[ownPropEditorName], editorName)
       if (!!this.$options.components[ownPropEditorName]) {  //局部注册的属性编辑器组件
         return ownPropEditorName
       }

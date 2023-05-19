@@ -1,9 +1,8 @@
 <template>
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
     :index-of-parent-list="indexOfParentList">
-
-    <div class="table-container" :class="[selected ? 'selected' : '', customClass]" @click.stop="selectWidget(widget)">
-      <el-input></el-input>
+    <div class="form-container" :class="[selected ? 'selected' : '', customClass]" @click.stop="selectWidget(widget)">
+      <VFPreview ref='VFPreview' :isDisabled='true' :hasSubmit='false' :formId="widget.pageId"></VFPreview>
     </div>
 
   </container-wrapper>
@@ -59,30 +58,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div.table-container {
+div.form-container {
   padding: 5px;
   border: 1px dashed #336699;
   box-sizing: border-box;
-
-  table.table-layout {
-    width: 100%;
-    text-align: center;
-    //border: 1px solid #c8ebfb;
-    border-collapse: collapse;
-    table-layout: fixed;
-
-    ::v-deep td {
-      height: 48px;
-      border: 1px dashed #336699;
-      padding: 3px;
-      display: table-cell;
-    }
-
-    .form-widget-list {
-      border: 1px dashed #336699;
-      min-height: 36px;
-    }
-  }
+  min-height: 600px;
 }
 
 .table-container.selected {

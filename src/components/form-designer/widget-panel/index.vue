@@ -13,7 +13,8 @@
                 @end="onContainerDragEnd">
                 <li v-for="(ctn, index) in containers" :key="index" class="container-widget-item" :title="ctn.displayName"
                   @dblclick="addContainerByDbClick(ctn)">
-                  <span><svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />{{ getWidgetLabel(ctn) }}</span>
+                  <span><svg-icon :icon-class="ctn.icon" class-name="color-svg-icon" />{{ ctn.type === 'PageDesignGrid' ?
+                    '栅格' : getWidgetLabel(ctn) }}</span>
                 </li>
               </draggable>
             </el-collapse-item>
@@ -84,8 +85,8 @@ export default {
       designerConfig: this.getDesignerConfig(),
       firstTab: 'componentLib',
       activeNames: ['1', '2', '3', '4'],
-      tableList: [{ type: "dynamic-table", icon: "table", category: "container", priorName: "动态列表", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }],
-      formList: [{ type: "dynamic-form", icon: 'sub-form', category: "container", priorName: "动态表单", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }],
+      tableList: [],
+      formList: [],
       containers,
     }
   },
@@ -110,10 +111,10 @@ export default {
     convartFormList (list) {
       const options = []
       list.map(item => {
-        const option = {
-
-        }
-        option.a = item.a
+        const option = { type: "dynamic-form", icon: 'sub-form', pageId: '', pageCode: '', category: "container", priorName: "动态表单", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
+        option.priorName = item.formName
+        option.pageId = item.formID
+        option.pageCode = item.formCode
         options.push(option)
       })
       return options
@@ -121,9 +122,10 @@ export default {
     convartTableList (list) {
       const options = []
       list.map(item => {
-        const option = { type: "dynamic-table", icon: "table", category: "container", displayName: "动态列表", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
-        option.priorName = item.groupName
-        option.pageId = item.groupID
+        const option = { type: "dynamic-table", icon: 'table', pageId: '', pageCode: '', category: "container", priorName: "动态列表", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
+        option.priorName = item.listPageName
+        option.pageId = item.listPageId
+        option.pageCode = item.listPageCode
         options.push(option)
       })
       return options
@@ -131,8 +133,9 @@ export default {
     async getTableListAndFromList (groupID) {
       if (this.queryTableListAndFromList) {
         const res = await this.queryTableListAndFromList(groupID)
-        // this.formList = this.convartFormList(res.data)
-        // this.tableList = this.convartTableList(res.data)
+        const { formList, listPageList } = res.data
+        this.formList = this.convartFormList(formList)
+        this.tableList = this.convartTableList(listPageList)
       } else {
         console.warn('请在pageDesign得父组件中通过provide提供queryTableListAndFromList！')
       }

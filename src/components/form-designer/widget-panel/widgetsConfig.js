@@ -1,6 +1,6 @@
 export const containers = [
   {
-    type: 'grid',
+    type: 'PageDesignGrid',
     alias: '', //组件别名，可以自定义
     category: 'container',
     icon: 'grid',
@@ -14,22 +14,22 @@ export const containers = [
     },
   },
 
-  {
-    type: 'tab',
-    category: 'container',
-    icon: 'tab',
-    displayType: 'border-card',
-    tabs: [],
-    options: {
-      name: '',
-      hidden: false,
-      customClass: '', //自定义css类名
-      onTabClick: '', //tab被选中时触发
-    },
-  },
+  // {
+  //   type: 'tab',
+  //   category: 'container',
+  //   icon: 'tab',
+  //   displayType: 'border-card',
+  //   tabs: [],
+  //   options: {
+  //     name: '',
+  //     hidden: false,
+  //     customClass: '', //自定义css类名
+  //     onTabClick: '', //tab被选中时触发
+  //   },
+  // },
 
   {
-    type: 'grid-col',
+    type: 'PageDesignGrid-col',
     category: 'container',
     icon: 'grid-col',
     internal: true,
@@ -49,21 +49,21 @@ export const containers = [
     },
   },
 
-  {
-    type: 'tab-pane',
-    category: 'container',
-    icon: 'tab-pane',
-    internal: true,
-    widgetList: [],
-    options: {
-      name: '',
-      label: '',
-      hidden: false,
-      active: false,
-      disabled: false,
-      customClass: '', //自定义css类名
-    },
-  },
+  // {
+  //   type: 'tab-pane',
+  //   category: 'container',
+  //   icon: 'tab-pane',
+  //   internal: true,
+  //   widgetList: [],
+  //   options: {
+  //     name: '',
+  //     label: '',
+  //     hidden: false,
+  //     active: false,
+  //     disabled: false,
+  //     customClass: '', //自定义css类名
+  //   },
+  // },
 ];
 
 

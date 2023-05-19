@@ -9,7 +9,7 @@
   import i18n from "@/utils/i18n";
 
   export default {
-    name: "grid-col-pull-editor",
+    name: "PageDesignGrid-col-pull-editor",
     mixins: [i18n],
     props: {
       designer: Object,

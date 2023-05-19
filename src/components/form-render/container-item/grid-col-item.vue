@@ -42,7 +42,7 @@
   import {traverseFieldWidgetsOfContainer} from "@/utils/util"
 
   export default {
-    name: "GridColItem",
+    name: "PageDesignGrid-col-item",
     componentName: 'ContainerItem',
     mixins: [emitter, i18n, refMixin],
     components: {

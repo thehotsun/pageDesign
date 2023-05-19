@@ -1,5 +1,5 @@
 <template>
-  <el-col v-if="widget.type === 'grid-col'" class="grid-cell" v-bind="layoutProps"
+  <el-col v-if="widget.type === 'PageDesignGrid-col'" class="grid-cell" v-bind="layoutProps"
           :class="[selected ? 'selected' : '', customClass]" :style="colHeightStyle"
           @click.native.stop="selectWidget(widget)">
     <draggable :list="widget.widgetList" v-bind="{group:'dragGroup', ghostClass: 'ghost',animation: 200}"
@@ -20,7 +20,7 @@
       </transition-group>
     </draggable>
 
-    <div class="grid-col-action" v-if="designer.selectedId === widget.id && widget.type === 'grid-col'">
+    <div class="grid-col-action" v-if="designer.selectedId === widget.id && widget.type === 'PageDesignGrid-col'">
       <i class="el-icon-back" :title="i18nt('designer.hint.selectParentWidget')"
          @click.stop="selectParentWidget(widget)"></i>
       <i class="el-icon-top" v-if="!!parentList && (parentList.length > 1)" :title="i18nt('designer.hint.moveUpWidget')"
@@ -31,7 +31,7 @@
       <i class="el-icon-delete" :title="i18nt('designer.hint.remove')" @click.stop="removeWidget"></i>
     </div>
 
-    <div class="grid-col-handler" v-if="designer.selectedId === widget.id && widget.type === 'grid-col'">
+    <div class="grid-col-handler" v-if="designer.selectedId === widget.id && widget.type === 'PageDesignGrid-col'">
       <i>{{i18nt('designer.widgetLabel.' + widget.type)}}</i>
     </div>
   </el-col>
@@ -44,7 +44,7 @@
   import refMixinDesign from "@/components/form-designer/refMixinDesign"
 
   export default {
-    name: "GridColWidget",
+    name: "PageDesignGrid-col-widget",
     componentName: "GridColWidget",
     mixins: [i18n, refMixinDesign],
     inject: ['refList'],

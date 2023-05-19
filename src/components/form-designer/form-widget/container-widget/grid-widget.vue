@@ -17,9 +17,9 @@
             @click.native.stop="selectWidget(widget)"
             style="margin: 0">
       <template v-for="(colWidget, colIdx) in widget.cols">
-        <grid-col-widget :widget="colWidget" :designer="designer" :key="colWidget.id" :parent-list="widget.cols"
+        <PageDesignGrid-col-widget :widget="colWidget" :designer="designer" :key="colWidget.id" :parent-list="widget.cols"
                          :index-of-parent-list="colIdx" :parent-widget="widget"
-                         :col-height="widget.options.colHeight"></grid-col-widget>
+                         :col-height="widget.options.colHeight"></PageDesignGrid-col-widget>
       </template>
     </el-row>
 
@@ -34,7 +34,7 @@
   import refMixinDesign from "@/components/form-designer/refMixinDesign"
 
   export default {
-    name: "grid-widget",
+    name: "PageDesignGrid-widget",
     componentName: 'ContainerWidget',
     mixins: [i18n, containerMixin, refMixinDesign],
     inject: ['refList'],

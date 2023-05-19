@@ -8,7 +8,7 @@
   import i18n from "@/utils/i18n"
 
   export default {
-    name: "grid-col-responsive-editor",
+    name: "PageDesignGrid-col-responsive-editor",
     mixins: [i18n],
     props: {
       designer: Object,

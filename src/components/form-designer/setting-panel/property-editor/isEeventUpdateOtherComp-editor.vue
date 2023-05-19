@@ -1,15 +1,13 @@
 <template>
-  <el-form-item :label="i18nt('designer.setting.isEeventUpdateOtherComp')">
+  <el-form-item label="触发关联组件更新">
     <el-switch v-model="optionModel.readonly"></el-switch>
   </el-form-item>
 </template>
 
 <script>
-import i18n from "@/utils/i18n"
 
 export default {
   name: "isEeventUpdateOtherComp-editor",
-  mixins: [i18n],
   props: {
     designer: Object,
     selectedWidget: Object,

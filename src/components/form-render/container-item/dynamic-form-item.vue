@@ -1,12 +1,6 @@
 <template>
   <container-item-wrapper :widget="widget" v-show="!widget.options.hidden">
-    <!-- <VFPreview ref='VFPreview' :primaryKeyValue='primaryKeyValue' :isDisabled='onlyRead' :hasSubmit='false'
-      :formId='formId' @submit="onSubmit" @cancel="expose_hideDialog"></VFPreview>
-
-    <VFRuntime @updateOtherComp="updateOtherComp" ref="VFRuntime" :primaryKeyValue='primaryKeyValue'
-      :isDisabled='onlyRead' :hasSubmit='false' :formId='formId' @submit="onSubmit" @cancel="expose_hideDialog">
-    </VFRuntime> -->
-    <div class="aaaa">form</div>
+    <VFRuntime ref='VFRuntime' :hasSubmit='false' :formId="widget.pageId" @updateOtherComp="updateOtherComp"></VFRuntime>
   </container-item-wrapper>
 </template>
 
@@ -27,6 +21,11 @@ export default {
   props: {
     widget: Object,
   },
+  provide () {
+    return {
+      updateOtherRelateComp: this.updateOtherComp
+    }
+  },
   inject: ['refList', 'sfRefList', 'globalModel'],
   data () {
     return {
@@ -38,21 +37,20 @@ export default {
     this.initRefList()
   },
   mounted () {
-    setTimeout(() => this.updateOtherComp(), 2000)
   },
   beforeDestroy () {
     this.unregisterFromRefList()
   },
   methods: {
-    updateOtherComp () {
+    updateOtherComp (params) {
       /* 必须用dispatch向指定父组件派发消息！！ */
       console.log('dynamic-form-item, updateOtherComp');
       this.dispatch('VFormRender', 'updateOtherComp',
-        [this.widget.options.eventUpdateOtherComp, 'form'])
+        [this.widget.options.eventUpdateOtherComp, params])
     },
     refreshData (params) {
       console.log(params, 'formrefreshData');
-      this.$refs.tableRender?.refreshData(params)
+      this.$refs.VFRuntime?.refreshData(params)
     }
   },
 }

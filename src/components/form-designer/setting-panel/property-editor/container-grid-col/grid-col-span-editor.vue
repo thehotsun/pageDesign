@@ -26,7 +26,7 @@
   import i18n from "@/utils/i18n";
 
   export default {
-    name: "grid-col-span-editor",
+    name: "PageDesignGrid-col-span-editor",
     mixins: [i18n],
     props: {
       designer: Object,

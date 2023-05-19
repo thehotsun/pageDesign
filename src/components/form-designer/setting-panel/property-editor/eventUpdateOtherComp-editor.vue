@@ -1,7 +1,7 @@
 <template>
   <el-form-item>
-    <span slot="label">{{ i18nt('designer.setting.eventUpdateOtherComp') }}
-      <el-tooltip effect="light" :content="i18nt('designer.setting.eventUpdateOtherCompHelp')">
+    <span slot="label">关联组件
+      <el-tooltip effect="light" content="当前组件的某个行为触发其他关联组件的数据更新">
         <i class="el-icon-info"></i></el-tooltip>
     </span>
     <el-select v-model="optionModel.eventUpdateOtherComp" filterable clearable allow-create default-first-option multiple>

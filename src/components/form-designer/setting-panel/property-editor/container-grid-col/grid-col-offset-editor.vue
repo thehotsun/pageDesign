@@ -9,7 +9,7 @@
   import i18n from "@/utils/i18n";
 
   export default {
-    name: "grid-col-offset-editor",
+    name: "PageDesignGrid-col-offset-editor",
     mixins: [i18n],
     props: {
       designer: Object,

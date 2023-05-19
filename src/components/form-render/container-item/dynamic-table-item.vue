@@ -1,7 +1,7 @@
 <template>
   <container-item-wrapper :widget="widget" v-show="!widget.options.hidden">
-    <!-- <table-render @updateOtherComp="updateOtherComp" ref="tableRender"></table-render> -->
-    <div class="aaaa">table</div>
+    <table-render ref="tableRender" :relate-id="widget.pageId" :form-code="widget.pageCode"
+      :previewMode="previewMode"></table-render>
   </container-item-wrapper>
 </template>
 
@@ -22,7 +22,12 @@ export default {
   props: {
     widget: Object,
   },
-  inject: ['refList', 'sfRefList', 'globalModel'],
+  inject: ['refList', 'sfRefList', 'globalModel', 'previewMode'],
+  provide () {
+    return {
+      updateOtherRelateComp: this.updateOtherComp
+    }
+  },
   data () {
     return {
     }
@@ -33,17 +38,16 @@ export default {
     this.initRefList()
   },
   mounted () {
-    setTimeout(() => this.updateOtherComp(), 2000)
   },
   beforeDestroy () {
     this.unregisterFromRefList()
   },
   methods: {
-    updateOtherComp () {
-      console.log('dynamic-table-item, updateOtherComp');
+    updateOtherComp (data) {
+      console.log('dynamic-table-item, updateOtherRelateComp');
       /* 必须用dispatch向指定父组件派发消息！！ */
       this.dispatch('VFormRender', 'updateOtherComp',
-        [this.widget.options.eventUpdateOtherComp, 'table'])
+        [this.widget.options.eventUpdateOtherComp, data])
     },
     refreshData (params) {
       console.log(params, 'tablerefreshData');

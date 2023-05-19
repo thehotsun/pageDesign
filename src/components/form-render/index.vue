@@ -168,7 +168,7 @@ export default {
   },
   watch: {
     //
-  }, 
+  },
   created () {
     this.buildFormModel(!this.formJsonObj ? null : this.formJsonObj.widgetList)
     this.initFormObject()
@@ -237,9 +237,9 @@ export default {
     },
 
     getContainerWidgetName (widget) {
-      if (widget.type === 'grid') {  //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
-        return 'vf-grid-item'
-      }
+      // if (widget.type === 'PageDesignGrid') {  //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
+      //   return 'vf-grid-item'
+      // }
 
       return widget.type + '-item'
     },
@@ -277,7 +277,7 @@ export default {
       if (wItem.category === 'container') {
         if (wItem.type === 'vf-dialog' || wItem.type === 'vf-drawer') {
           // 什么也不做，不处理弹窗、抽屉内部组件！！
-        } else if (wItem.type === 'grid') {
+        } else if (wItem.type === 'PageDesignGrid') {
           if (!!wItem.cols && (wItem.cols.length > 0)) {
             wItem.cols.forEach((childItem) => {
               this.buildDataFromWidget(childItem)
@@ -344,7 +344,7 @@ export default {
             let initialValue = this.formData[gridSubFormName]
             this.$set(this.formDataModel, gridSubFormName, deepClone(initialValue))
           }
-        } else if ((wItem.type === 'grid-col') || (wItem.type === 'table-cell')) {
+        } else if ((wItem.type === 'PageDesignGrid-col') || (wItem.type === 'table-cell')) {
           if (!!wItem.widgetList && (wItem.widgetList.length > 0)) {
             wItem.widgetList.forEach((childItem) => {
               this.buildDataFromWidget(childItem)

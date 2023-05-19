@@ -5,7 +5,7 @@
             :class="[customClass]"
             :ref="widget.id" v-show="!widget.options.hidden">
       <template v-for="(colWidget, colIdx) in widget.cols">
-        <grid-col-item :widget="colWidget" :key="colIdx" :parent-list="widget.cols"
+        <PageDesignGrid-col-item :widget="colWidget" :key="colIdx" :parent-list="widget.cols"
                        :index-of-parent-list="colIdx" :parent-widget="widget"
                        :col-height="widget.options.colHeight"
                        :sub-form-row-id="subFormRowId" :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex">
@@ -13,7 +13,7 @@
           <template v-for="slot in Object.keys($scopedSlots)" v-slot:[slot]="scope">
             <slot :name="slot" v-bind="scope"/>
           </template>
-        </grid-col-item>
+        </PageDesignGrid-col-item>
       </template>
     </el-row>
 
@@ -29,7 +29,7 @@
   import containerItemMixin from "./containerItemMixin"
 
   export default {
-    name: "vf-grid-item",  //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
+    name: "PageDesignGrid-item",  //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
     componentName: 'ContainerItem',
     mixins: [emitter, i18n, refMixin, containerItemMixin],
     components: {

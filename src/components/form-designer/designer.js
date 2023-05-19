@@ -896,10 +896,10 @@ export function createDesigner(vueInstance) {
     },
 
     cloneGridCol(widget, parentWidget) {
-      let newGridCol = deepClone(this.getContainerByType('grid-col'));
+      let newGridCol = deepClone(this.getContainerByType('PageDesignGrid-col'));
       newGridCol.options.span = widget.options.span;
       let tmpId = generateId();
-      newGridCol.id = 'grid-col-' + tmpId;
+      newGridCol.id = 'PageDesignGrid-col-' + tmpId;
       newGridCol.options.name = 'gridCol' + tmpId;
 
       if (widget.widgetList.length === 1) {
@@ -918,14 +918,14 @@ export function createDesigner(vueInstance) {
     },
 
     cloneContainer(containWidget) {
-      if (containWidget.type === 'grid') {
+      if (containWidget.type === 'PageDesignGrid') {
         let newGrid = deepClone(this.getContainerByType('grid'));
         newGrid.id = newGrid.type + generateId();
         newGrid.options.name = newGrid.id;
         containWidget.cols.forEach((gridCol) => {
-          let newGridCol = deepClone(this.getContainerByType('grid-col'));
+          let newGridCol = deepClone(this.getContainerByType('PageDesignGrid-col'));
           let tmpId = generateId();
-          newGridCol.id = 'grid-col-' + tmpId;
+          newGridCol.id = 'PageDesignGrid-col-' + tmpId;
           newGridCol.options.name = 'gridCol' + tmpId;
           newGridCol.options.span = gridCol.options.span;
           newGrid.cols.push(newGridCol);
@@ -1027,16 +1027,16 @@ export function createDesigner(vueInstance) {
       let newCon = deepClone(origin);
       newCon.id = newCon.type.replace(/-/g, '') + generateId();
       newCon.options.name = newCon.id;
-      if (newCon.type === 'grid') {
-        let newCol = deepClone(this.getContainerByType('grid-col'));
+      if (newCon.type === 'PageDesignGrid') {
+        let newCol = deepClone(this.getContainerByType('PageDesignGrid-col'));
         let tmpId = generateId();
-        newCol.id = 'grid-col-' + tmpId;
+        newCol.id = 'PageDesignGrid-col-' + tmpId;
         newCol.options.name = 'gridCol' + tmpId;
         newCon.cols.push(newCol);
         //
         newCol = deepClone(newCol);
         tmpId = generateId();
-        newCol.id = 'grid-col-' + tmpId;
+        newCol.id = 'PageDesignGrid-col-' + tmpId;
         newCol.options.name = 'gridCol' + tmpId;
         newCon.cols.push(newCol);
       } else if (newCon.type === 'table') {
@@ -1100,9 +1100,9 @@ export function createDesigner(vueInstance) {
 
     addNewColOfGrid(gridWidget) {
       const cols = gridWidget.cols;
-      let newGridCol = deepClone(this.getContainerByType('grid-col'));
+      let newGridCol = deepClone(this.getContainerByType('PageDesignGrid-col'));
       let tmpId = generateId();
-      newGridCol.id = 'grid-col-' + tmpId;
+      newGridCol.id = 'PageDesignGrid-col-' + tmpId;
       newGridCol.options.name = 'gridCol' + tmpId;
       if (!!cols && cols.length > 0) {
         let spanSum = 0;

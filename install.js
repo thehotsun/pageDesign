@@ -1,12 +1,12 @@
 import VFormDesigner from '@/components/form-designer/index.vue';
 import VFormRender from '@/components/form-render/index.vue';
-import { loadExtension } from '@/extension/extension-loader';
+// import { loadExtension } from '@/extension/extension-loader';
 
 import '@/utils/directive';
 import '@/icons';
 import '@/iconfont/iconfont.css';
 
-loadExtension();
+// loadExtension();
 
 const setProductInfo = (Vue, options) => {
   Vue.prototype.$vformInfo = {
