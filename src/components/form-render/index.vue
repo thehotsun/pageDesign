@@ -168,7 +168,7 @@ export default {
   },
   watch: {
     //
-  },
+  }, 
   created () {
     this.buildFormModel(!this.formJsonObj ? null : this.formJsonObj.widgetList)
     this.initFormObject()

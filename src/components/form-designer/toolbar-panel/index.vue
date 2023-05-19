@@ -26,8 +26,8 @@
 
     <div class="right-toolbar">
       <div class="right-toolbar-con">
-        <el-button v-if="showToolButton('clearDesignerButton')" type="text" @click="clearFormWidget">
-          <i class="el-icon-delete" />{{i18nt('designer.toolbar.clear')}}</el-button>
+        <!-- <el-button v-if="showToolButton('clearDesignerButton')" type="text" @click="clearFormWidget">
+          <i class="el-icon-delete" />{{i18nt('designer.toolbar.clear')}}</el-button> -->
         <el-button v-if="showToolButton('previewFormButton')" type="text" @click="previewForm">
           <i class="el-icon-view" />{{i18nt('designer.toolbar.preview')}}</el-button>
         <el-button v-if="showToolButton('importJsonButton')" type="text" @click="importJson">

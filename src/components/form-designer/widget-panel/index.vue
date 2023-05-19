@@ -78,7 +78,7 @@ export default {
   props: {
     designer: Object,
   },
-  inject: ['getBannedWidgets', 'getDesignerConfig', 'queryFormList', 'queryTableList', 'groupId'],
+  inject: ['getBannedWidgets', 'getDesignerConfig', 'queryTableListAndFromList', 'getPageInfo'],
   data () {
     return {
       designerConfig: this.getDesignerConfig(),
@@ -91,11 +91,20 @@ export default {
   },
   computed: {
     //
+    pageInfo () {
+      return this.getPageInfo()
+    }
+  },
+  watch: {
+    pageInfo (val) {
+      if (val?.groupID) {
+        this.getTableListAndFromList(val?.groupID)
+      }
+    }
   },
   mounted () {
     this.loadWidgets()
-    this.getFormList()
-    this.getTableList()
+    console.log(this.getPageInfo(), 'getPageInfo');
   },
   methods: {
     convartFormList (list) {
@@ -119,21 +128,13 @@ export default {
       })
       return options
     },
-    async getFormList () {
-      if (this.queryFormList) {
-        const res = await this.queryFormList(this.groupId)
-        this.formList = this.convartFormList(res.data)
+    async getTableListAndFromList (groupID) {
+      if (this.queryTableListAndFromList) {
+        const res = await this.queryTableListAndFromList(groupID)
+        // this.formList = this.convartFormList(res.data)
+        // this.tableList = this.convartTableList(res.data)
       } else {
-        console.warn('请在pageDesign得父组件中通过provide提供queryFormList！')
-      }
-    },
-
-    async getTableList () {
-      if (this.queryTableList) {
-        const res = await this.queryTableList(this.groupId)
-        this.tableList = this.convartTableList(res.data)
-      } else {
-        console.warn('请在pageDesign得父组件中通过provide提供queryTableList！')
+        console.warn('请在pageDesign得父组件中通过provide提供queryTableListAndFromList！')
       }
     },
 
