@@ -26,35 +26,34 @@
 </template>
 
 <script>
-import Vue from 'vue'
-//import ElForm from 'element-ui/packages/form/src/form.vue'  /* 用于源码调试Element UI */
+
 import emitter from '@/utils/emitter'
-import './container-item/index'
-import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
+import dynamicFormItem from './container-item/dynamic-form-item.vue';
+import dynamicTableItem from './container-item/dynamic-table-item.vue';
+import gridItem from './container-item/grid-item.vue';
+
 import {
-  buildDefaultFormJson, cloneFormConfigWithoutEventHandler,
+  buildDefaultFormJson,
   deepClone,
   generateId,
   getAllContainerWidgets,
-  getAllFieldWidgets, getContainerWidgetByName,
+  getAllFieldWidgets,
   getDSByName, getFieldWidgetByName,
   insertCustomCssToHead,
   insertGlobalFunctionsToHtml, overwriteObj,
-  runDataSourceRequest,
-  traverseFieldWidgets, traverseFieldWidgetsOfContainer
+  runDataSourceRequest, traverseFieldWidgetsOfContainer
 } from "@/utils/util"
 import i18n, { changeLocale } from "../../utils/i18n"
-import DynamicDialog from './dynamic-dialog'
-import DynamicDrawer from './dynamic-drawer'
+
 
 export default {
   name: "VFormRender",
   componentName: 'VFormRender',
   mixins: [emitter, i18n],
   components: {
-    //ElForm,
-
-    ...FieldComponents,
+    'PageDesignGrid-item': gridItem,
+    'dynamic-form-item': dynamicFormItem,
+    'dynamic-table-item': dynamicTableItem,
   },
   props: {
     formJson: { //prop传入的表单JSON配置
@@ -188,14 +187,6 @@ export default {
         }
       })
     })
-    // setTimeout(() => {
-    //   const str = 'dynamicform69754'
-    //   const list = this.flatten(this.formJsonObj.widgetList)
-    //   const relateComp = list.find(item => item.id === str).options.eventUpdateOtherComp
-    //   relateComp?.map(item => {
-    //     console.log(this.widgetRefList[item], 'asdasdasd');
-    //   })
-    // }, 2000)
   },
   beforeDestroy () {
     //
@@ -240,11 +231,12 @@ export default {
       // if (widget.type === 'PageDesignGrid') {  //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
       //   return 'vf-grid-item'
       // }
-
+      console.log(widget.type + '-item', '//////');
       return widget.type + '-item'
     },
 
     getWidgetName (widget) {
+      console.log(widget.type + '-item', '//////');
       return widget.type + '-widget'
     },
 
@@ -947,61 +939,61 @@ export default {
      * @param formData
      * @param extraData
      */
-    showDialog (dialogName, formData = {}, extraData = {}) {
-      let topFormRef = this.getTopFormRef()
-      let dialogCon = getContainerWidgetByName(topFormRef.widgetList, dialogName)
-      if (!dialogName || (dialogCon.type !== 'vf-dialog')) {
-        this.$message.error(this.i18nt('render.hint.refNotFound') + dialogName)
-        return
-      }
-      let dFormJson = {
-        widgetList: deepClone(dialogCon.widgetList),
-        formConfig: cloneFormConfigWithoutEventHandler(topFormRef.formConfig)
-      }
+    // showDialog (dialogName, formData = {}, extraData = {}) {
+    //   let topFormRef = this.getTopFormRef()
+    //   let dialogCon = getContainerWidgetByName(topFormRef.widgetList, dialogName)
+    //   if (!dialogName || (dialogCon.type !== 'vf-dialog')) {
+    //     this.$message.error(this.i18nt('render.hint.refNotFound') + dialogName)
+    //     return
+    //   }
+    //   let dFormJson = {
+    //     widgetList: deepClone(dialogCon.widgetList),
+    //     formConfig: cloneFormConfigWithoutEventHandler(topFormRef.formConfig)
+    //   }
 
-      let DialogCreator = Vue.extend(DynamicDialog)
-      let dialogInstance = new DialogCreator({
-        propsData: {
-          options: dialogCon.options,
-          formJson: dFormJson,
-          formData: formData || {},
-          optionData: topFormRef.optionData,
-          globalDsv: topFormRef.globalDsv,
-          parentFormRef: this,
-          extraData: extraData,
-        }
-      })
-      document.body.appendChild(dialogInstance.$mount().$el)
-      dialogInstance.show()
-    },
+    //   let DialogCreator = Vue.extend(DynamicDialog)
+    //   let dialogInstance = new DialogCreator({
+    //     propsData: {
+    //       options: dialogCon.options,
+    //       formJson: dFormJson,
+    //       formData: formData || {},
+    //       optionData: topFormRef.optionData,
+    //       globalDsv: topFormRef.globalDsv,
+    //       parentFormRef: this,
+    //       extraData: extraData,
+    //     }
+    //   })
+    //   document.body.appendChild(dialogInstance.$mount().$el)
+    //   dialogInstance.show()
+    // },
 
-    showDrawer (drawerName, formData = {}, extraData = {}) {
-      let topFormRef = this.getTopFormRef()
-      let drawerCon = getContainerWidgetByName(topFormRef.widgetList, drawerName)
-      if (!drawerCon || (drawerCon.type !== 'vf-drawer')) {
-        this.$message.error(this.i18nt('render.hint.refNotFound') + drawerName)
-        return
-      }
-      let dFormJson = {
-        widgetList: deepClone(drawerCon.widgetList),
-        formConfig: cloneFormConfigWithoutEventHandler(topFormRef.formConfig)
-      }
+    // showDrawer (drawerName, formData = {}, extraData = {}) {
+    //   let topFormRef = this.getTopFormRef()
+    //   let drawerCon = getContainerWidgetByName(topFormRef.widgetList, drawerName)
+    //   if (!drawerCon || (drawerCon.type !== 'vf-drawer')) {
+    //     this.$message.error(this.i18nt('render.hint.refNotFound') + drawerName)
+    //     return
+    //   }
+    //   let dFormJson = {
+    //     widgetList: deepClone(drawerCon.widgetList),
+    //     formConfig: cloneFormConfigWithoutEventHandler(topFormRef.formConfig)
+    //   }
 
-      let DrawerCreator = Vue.extend(DynamicDrawer)
-      let drawerInstance = new DrawerCreator({
-        propsData: {
-          options: drawerCon.options,
-          formJson: dFormJson,
-          formData: formData || {},
-          optionData: topFormRef.optionData,
-          globalDsv: topFormRef.globalDsv,
-          parentFormRef: this,
-          extraData: extraData,
-        }
-      })
-      document.body.appendChild(drawerInstance.$mount().$el)
-      drawerInstance.show()
-    },
+    //   let DrawerCreator = Vue.extend(DynamicDrawer)
+    //   let drawerInstance = new DrawerCreator({
+    //     propsData: {
+    //       options: drawerCon.options,
+    //       formJson: dFormJson,
+    //       formData: formData || {},
+    //       optionData: topFormRef.optionData,
+    //       globalDsv: topFormRef.globalDsv,
+    //       parentFormRef: this,
+    //       extraData: extraData,
+    //     }
+    //   })
+    //   document.body.appendChild(drawerInstance.$mount().$el)
+    //   drawerInstance.show()
+    // },
 
     /**
      * 判断表单是否处于设计器预览状态

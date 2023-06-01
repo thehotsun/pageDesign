@@ -42,14 +42,14 @@ import {
   getAllFieldWidgets,
   getQueryParam, traverseAllWidgets, traverseFieldWidgetsOfContainer
 } from "@/utils/util"
-import { MOCK_CASE_URL, VARIANT_FORM_VERSION } from "@/utils/config"
-import i18n, { changeLocale } from "@/utils/i18n"
-import axios from "axios"
-import {
-  addFormTemplate,
-  clearFormTemplates,
-  getAllFormTemplates
-} from "@/components/form-designer/widget-panel/templatesConfig";
+import i18n from "@/utils/i18n"
+// import { MOCK_CASE_URL, VARIANT_FORM_VERSION } from "@/utils/config"
+// import axios from "axios"
+// import {
+//   addFormTemplate,
+//   clearFormTemplates,
+//   getAllFormTemplates
+// } from "@/components/form-designer/widget-panel/templatesConfig";
 
 export default {
   name: "VFormDesigner",
@@ -120,16 +120,10 @@ export default {
   },
   data () {
     return {
-      vFormVersion: VARIANT_FORM_VERSION,
       curLangName: '',
 
       vsCodeFlag: false,
       caseName: '',
-
-      docUrl: 'https://www.vform666.com/document.html',
-      gitUrl: 'https://github.com/vform666/variant-form',
-      chatUrl: 'https://www.vform666.com/chat-group.html',
-      subScribeUrl: 'https://www.vform666.com/subscribe.html',
 
       designer: createDesigner(this),
 
@@ -139,15 +133,15 @@ export default {
     }
   },
   computed: {
-    vfProductName () {
-      return (this.designerConfig && this.designerConfig.productName) ||
-        (this.$vformInfo && this.$vformInfo.productName) || 'VForm Pro'
-    },
+    // vfProductName () {
+    //   return (this.designerConfig && this.designerConfig.productName) ||
+    //     (this.$vformInfo && this.$vformInfo.productName) || 'VForm Pro'
+    // },
 
-    vfProductTitle () {
-      return (this.designerConfig && this.designerConfig.productTitle) ||
-        (this.$vformInfo && this.$vformInfo.productTitle) || this.i18nt('application.productTitle')
-    }
+    // vfProductTitle () {
+    //   return (this.designerConfig && this.designerConfig.productTitle) ||
+    //     (this.$vformInfo && this.$vformInfo.productTitle) || this.i18nt('application.productTitle')
+    // }
 
   },
   provide () {
@@ -163,11 +157,10 @@ export default {
     this.caseName = getQueryParam('case')
   },
   mounted () {
-    this.initLocale()
-    this.initFormTemplates()
-
-    this.loadCase()
-    this.loadFieldListFromServer()
+    // this.initLocale()
+    // this.initFormTemplates()
+    // this.loadCase()
+    // this.loadFieldListFromServer()
   },
   methods: {
     showLink (configName) {
@@ -224,16 +217,16 @@ export default {
       })
     },
 
-    initLocale () {
-      let curLocale = localStorage.getItem('v_form_locale')
-      if (!!this.vsCodeFlag) {
-        curLocale = curLocale || 'en-US'
-      } else {
-        curLocale = curLocale || 'zh-CN'
-      }
-      this.curLangName = this.i18nt('application.' + curLocale)
-      this.changeLanguage(curLocale)
-    },
+    // initLocale () {
+    //   let curLocale = localStorage.getItem('v_form_locale')
+    //   if (!!this.vsCodeFlag) {
+    //     curLocale = curLocale || 'en-US'
+    //   } else {
+    //     curLocale = curLocale || 'zh-CN'
+    //   }
+    //   this.curLangName = this.i18nt('application.' + curLocale)
+    //   this.changeLanguage(curLocale)
+    // },
 
     initFormTemplates () {
       if (!!this.formTemplates && (this.formTemplates.length > 0)) {
@@ -266,14 +259,14 @@ export default {
       })
     },
 
-    handleLanguageChanged (command) {
-      this.changeLanguage(command)
-      this.curLangName = this.i18nt('application.' + command)
-    },
+    // handleLanguageChanged (command) {
+    //   this.changeLanguage(command)
+    //   this.curLangName = this.i18nt('application.' + command)
+    // },
 
-    changeLanguage (langName) {
-      changeLocale(langName)
-    },
+    // changeLanguage (langName) {
+    //   changeLocale(langName)
+    // },
 
     setFormJson (formJson) {
       let modifiedFlag = false

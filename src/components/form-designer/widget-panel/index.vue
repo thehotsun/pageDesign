@@ -91,21 +91,22 @@ export default {
     }
   },
   computed: {
-    //
     pageInfo () {
       return this.getPageInfo()
     }
   },
   watch: {
-    pageInfo (val) {
-      if (val?.groupID) {
-        this.getTableListAndFromList(val?.groupID)
+    pageInfo: {
+      immediate: true,
+      handler (val) {
+        if (val?.groupId) {
+          this.getTableListAndFromList(val?.groupId)
+        }
       }
     }
   },
   mounted () {
     this.loadWidgets()
-    console.log(this.getPageInfo(), 'getPageInfo');
   },
   methods: {
     convartFormList (list) {
@@ -113,7 +114,7 @@ export default {
       list.map(item => {
         const option = { type: "dynamic-form", icon: 'sub-form', pageId: '', pageCode: '', category: "container", priorName: "动态表单", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
         option.priorName = item.formName
-        option.pageId = item.formID
+        option.pageId = item.formId
         option.pageCode = item.formCode
         options.push(option)
       })
@@ -130,9 +131,9 @@ export default {
       })
       return options
     },
-    async getTableListAndFromList (groupID) {
+    async getTableListAndFromList (groupId) {
       if (this.queryTableListAndFromList) {
-        const res = await this.queryTableListAndFromList(groupID)
+        const res = await this.queryTableListAndFromList(groupId)
         const { formList, listPageList } = res.data
         this.formList = this.convartFormList(formList)
         this.tableList = this.convartTableList(listPageList)

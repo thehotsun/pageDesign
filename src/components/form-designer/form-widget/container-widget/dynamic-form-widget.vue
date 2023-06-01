@@ -12,7 +12,6 @@
 import i18n from "@/utils/i18n"
 import containerMixin from "@/components/form-designer/form-widget/container-widget/containerMixin"
 import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-wrapper"
-import TableCellWidget from "@/components/form-designer/form-widget/container-widget/table-cell-widget"
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
 
 export default {
@@ -22,7 +21,11 @@ export default {
   inject: ['refList'],
   components: {
     ContainerWrapper,
-    TableCellWidget,
+  },
+  provide () {
+    return {
+      updateOtherRelateComp: () => {}
+    }
   },
   props: {
     widget: Object,

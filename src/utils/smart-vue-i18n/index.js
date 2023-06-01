@@ -33,6 +33,7 @@ const install = (Vue, options) => {
     proto.$st2 = (path, path2) => {
       let messages = _vm.messages[_vm.lang]
       const message = get(messages, path)
+      
       return (message !== null) ? message : get(messages, path2)
     }
 

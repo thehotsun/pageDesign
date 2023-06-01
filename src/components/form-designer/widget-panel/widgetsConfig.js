@@ -1,6 +1,7 @@
 export const containers = [
   {
     type: 'PageDesignGrid',
+    typeName: '栅格',
     alias: '', //组件别名，可以自定义
     category: 'container',
     icon: 'grid',

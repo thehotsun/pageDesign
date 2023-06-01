@@ -13,9 +13,7 @@
 import i18n from "@/utils/i18n"
 import containerMixin from "@/components/form-designer/form-widget/container-widget/containerMixin"
 import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-wrapper"
-import TableCellWidget from "@/components/form-designer/form-widget/container-widget/table-cell-widget"
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
-
 export default {
   name: "dynamic-table-widget",
   componentName: 'ContainerWidget',
@@ -23,7 +21,6 @@ export default {
   inject: ['refList'],
   components: {
     ContainerWrapper,
-    TableCellWidget,
   },
   props: {
     widget: Object,
@@ -41,6 +38,11 @@ export default {
       return this.widget.options.customClass || ''
     },
 
+  },
+  provide () {
+    return {
+      updateOtherRelateComp: () => { }
+    }
   },
   watch: {
     //
@@ -64,7 +66,7 @@ div.table-container {
   padding: 5px;
   border: 1px dashed #336699;
   box-sizing: border-box;
-  height: 600px; 
+  height: 600px;
 }
 
 .table-container.selected {

@@ -1,5 +1,6 @@
 const requireComponent = require.context('./', false, /\w+\.vue$/)
 
+
 let comps = {}
 
 requireComponent.keys().map(fileName => {

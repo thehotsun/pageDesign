@@ -5,9 +5,10 @@
   "scripts": {
     "serve": "vue-cli-service serve --open src/main.js",
     "build": "vue-cli-service build --report --dest dist/build",
-    "lib": "vue-cli-service build --report --target lib --dest dist/lib --name pageDesigner install.js",
+    "lib": "vue-cli-service build --report --target lib --dest dist/lib --name pageDesigner install.js &&  npm run copyPaste",
     "lib-render": "vue-cli-service build --report --target lib --dest dist/lib-render --name pageDesigner install-render.js",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "copyPaste": "node ./scripts/update-target-lib.js"
   },
   "dependencies": {
     "axios": "^0.21.1",
