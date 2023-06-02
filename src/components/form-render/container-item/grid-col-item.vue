@@ -37,9 +37,8 @@
 import emitter from '@/utils/emitter'
 import i18n from "../../../utils/i18n"
 import refMixin from "@/components/form-render/refMixin.js"
-import componentsMixin from "@/components/form-render/components-mixin.js"
+import componentsMixin from "./components-mixin.js"
 import { traverseFieldWidgetsOfContainer } from "@/utils/util"
-console.log(refMixin, 'refMixinPageDesignGrid-col-item');
 
 export default {
   name: "PageDesignGrid-col-item",

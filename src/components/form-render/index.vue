@@ -28,9 +28,9 @@
 <script>
 
 import emitter from '@/utils/emitter'
-import dynamicFormItem from './container-item/dynamic-form-item.vue';
-import dynamicTableItem from './container-item/dynamic-table-item.vue';
-import gridItem from './container-item/grid-item.vue';
+
+import './container-item/index'
+import componentsMixin from "./container-item/components-mixin.js"
 
 import {
   buildDefaultFormJson,
@@ -49,11 +49,8 @@ import i18n, { changeLocale } from "../../utils/i18n"
 export default {
   name: "VFormRender",
   componentName: 'VFormRender',
-  mixins: [emitter, i18n],
+  mixins: [emitter, i18n, componentsMixin],
   components: {
-    'PageDesignGrid-item': gridItem,
-    'dynamic-form-item': dynamicFormItem,
-    'dynamic-table-item': dynamicTableItem,
   },
   props: {
     formJson: { //prop传入的表单JSON配置

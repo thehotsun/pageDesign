@@ -40,11 +40,11 @@
 import Draggable from 'vuedraggable'
 import i18n from "@/utils/i18n";
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
-
+import componentsMixin from "./components-mixin.js"
 export default {
   name: "PageDesignGrid-col-widget",
   componentName: "GridColWidget",
-  mixins: [i18n, refMixinDesign],
+  mixins: [i18n, refMixinDesign, componentsMixin],
   inject: ['refList'],
   components: {
     Draggable,

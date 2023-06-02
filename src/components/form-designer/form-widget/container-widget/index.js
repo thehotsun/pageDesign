@@ -22,10 +22,4 @@ end */
 //   let comp = requireComponent(fileName).default;
 // })
 import gird from "./grid-widget.vue"
-import girdCol from "./grid-col-widget.vue"
-import dynamicFormWidget from './dynamic-form-widget.vue'
-import dynamicTableWidget from './dynamic-table-widget.vue';
-Vue.component(dynamicFormWidget.name, dynamicFormWidget);
-Vue.component(dynamicTableWidget.name, dynamicTableWidget);
 Vue.component(gird.name, gird);
-Vue.component(girdCol.name, girdCol);

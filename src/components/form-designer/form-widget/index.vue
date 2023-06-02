@@ -32,12 +32,13 @@
 <script>
 import Draggable from 'vuedraggable'
 import '@/components/form-designer/form-widget/container-widget/index'
+import componentsMixin from "./container-widget/components-mixin.js"
 import i18n from "@/utils/i18n"
 
 export default {
   name: "VFormWidget",
   componentName: "VFormWidget",
-  mixins: [i18n],
+  mixins: [i18n, componentsMixin],
   components: {
     Draggable,
   },

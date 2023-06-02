@@ -11,7 +11,6 @@ import i18n from "../../../utils/i18n"
 import refMixin from "../refMixin.js"
 import ContainerItemWrapper from './container-item-wrapper'
 import containerItemMixin from "./containerItemMixin";
-console.log(refMixin, 'refMixindynamic-table-item');
 
 export default {
   name: "dynamic-table-item",
