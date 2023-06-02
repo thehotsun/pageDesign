@@ -166,6 +166,12 @@ export default {
       this.designer.changeLayoutType(newType)
     },
 
+    
+    clearFormWidget () {
+      this.designer.clearDesigner()
+      this.designer.formWidget.clearWidgetRefList()
+    },
+
 
     previewForm () {
       this.$set(this.formJson, 'widgetList', deepClone(this.designer.widgetList))

@@ -174,16 +174,18 @@ export default {
 
     /* draggable组件的move钩子是在内部子组件被拖放到其他draggable组件时触发！！ */
     checkContainerMove (evt) {
+      console.log('checkContainerMove', evt);
       return this.designer.checkWidgetMove(evt)
     },
 
     /* draggable组件的move钩子是在内部子组件被拖放到其他draggable组件时触发！！ */
     checkFieldMove (evt) {
+      console.log('checkFieldMove', evt);
       return this.designer.checkFieldMove(evt)
     },
 
     onContainerDragEnd (evt) {
-      //console.log('Drag end of container: ')
+      console.log('Drag end of container: ', evt)
       //console.log(evt)
     },
 

@@ -133,6 +133,7 @@ export default {
     },
 
     onDragAdd (evt) {
+      console.log('drag and000', evt);
       const newIndex = evt.newIndex
       if (!!this.designer.widgetList[newIndex]) {
         this.designer.setSelected(this.designer.widgetList[newIndex])
@@ -143,10 +144,12 @@ export default {
     },
 
     onDragUpdate () {  /* 在VueDraggable内拖拽组件发生位置变化时会触发update，未发生组件位置变化不会触发！！ */
+      console.log('drag update000', evt);
       this.designer.emitHistoryChange()
     },
 
     checkMove (evt) {
+      console.log('checkMove');
       return this.designer.checkWidgetMove(evt)
     },
 
