@@ -1,4 +1,4 @@
-import {deepClone, getDSByName, overwriteObj, runDataSourceRequest, translateOptionItems} from "@/utils/util"
+import {deepClone, translateOptionItems} from "@/utils/util"
 import FormValidators from '@/utils/validators'
 
 export default {
@@ -159,7 +159,6 @@ export default {
       /* 监听重新加载选项事件 */
       this.$on('reloadOptionItems', (widgetNames) => {
         if ((widgetNames.length === 0) || (widgetNames.indexOf(this.field.options.name) > -1)) {
-          this.initOptionItems(true)
         }
       })
     },
@@ -209,51 +208,6 @@ export default {
           delete this.refList[oldRefName + '@row' + this.subFormRowId]
         } else {
           delete this.refList[oldRefName]
-        }
-      }
-    },
-
-    async initOptionItems(keepSelected) {
-      if (this.designState) {
-        return
-      }
-
-      if ((this.field.type === 'radio') || (this.field.type === 'checkbox')
-          || (this.field.type === 'select') || (this.field.type === 'cascader')) {
-        /* 首先处理数据源选项加载 */
-        if (!!this.field.options.dsEnabled) {
-          this.field.options.optionItems.splice(0, this.field.options.optionItems.length) // 清空原有选项
-          let curDSName = this.field.options.dsName
-          let curDSetName = this.field.options.dataSetName
-          let curDS = getDSByName(this.formConfig, curDSName)
-          if (!!curDS && !curDSetName) {
-            let gDsv = this.getGlobalDsv() || {}
-            //console.log('Global DSV is: ', gDsv)
-            let localDsv = new Object({})
-            overwriteObj(localDsv, gDsv)
-            localDsv['widgetName'] = this.field.options.name
-            let dsResult = null
-            try {
-              dsResult = await runDataSourceRequest(curDS, localDsv, this.getFormRef(), false, this.$message)
-              this.loadOptions(dsResult)
-            } catch(err) {
-              this.$message.error(err.message)
-            }
-          } else if (!!curDS && !!curDSetName && !this.dataSetLoadedFlag) {
-            this.loadOptionItemsFromDataSet(curDSName)
-          }
-
-          return;
-        }
-
-        /* 异步更新option-data之后globalOptionData不能获取到最新值，改用provide的getOptionData()方法 */
-        const newOptionItems = this.getOptionData()
-        if (!!newOptionItems && newOptionItems.hasOwnProperty(this.field.options.name)) {
-          if (!!keepSelected) {
-            this.reloadOptions(newOptionItems[this.field.options.name])
-          } else {
-            this.loadOptions(newOptionItems[this.field.options.name])
-          }
         }
       }
     },

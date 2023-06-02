@@ -39,19 +39,6 @@
               </draggable>
             </el-collapse-item>
 
-            <!-- -->
-            <!-- <el-collapse-item name="4" :title="i18nt('designer.customFieldTitle')">
-              <draggable tag="ul" :list="customFields" :group="{ name: 'dragGroup', pull: 'clone', put: false }"
-                :move="checkFieldMove" :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
-                <li v-for="(fld, index) in customFields" :key="index" class="field-widget-item" :title="fld.displayName"
-                  @dblclick="addFieldByDbClick(fld)">
-                  <span>
-                    <svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{ getWidgetLabel(fld) }}</span>
-                </li>
-              </draggable>
-            </el-collapse-item> -->
-            <!-- -->
-
           </el-collapse>
 
         </el-tab-pane>

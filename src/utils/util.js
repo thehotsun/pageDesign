@@ -1,5 +1,4 @@
 import Clipboard from 'clipboard';
-import axios from 'axios';
 
 export function isNull(value) {
   return value === null || value === undefined;
@@ -624,39 +623,6 @@ function buildRequestConfig(dataSource, DSV, VFR, isSandbox) {
   return chFn.call(null, config, isSandbox, DSV, VFR);
 }
 
-export async function runDataSourceRequest(
-  dataSource,
-  DSV,
-  VFR,
-  isSandbox,
-  $message
-) {
-  try {
-    let requestConfig = buildRequestConfig(dataSource, DSV, VFR, isSandbox);
-    let result = await axios.request(requestConfig);
-    //let result = await axios.create().request(requestConfig)
-
-    let dhFn = new Function(
-      'result',
-      'isSandbox',
-      'DSV',
-      'VFR',
-      dataSource.dataHandlerCode
-    );
-    return dhFn.call(null, result, isSandbox, DSV, VFR);
-  } catch (err) {
-    let ehFn = new Function(
-      'error',
-      'isSandbox',
-      'DSV',
-      '$message',
-      'VFR',
-      dataSource.errorHandlerCode
-    );
-    ehFn.call(null, err, isSandbox, DSV, $message, VFR);
-    console.error(err);
-  }
-}
 
 export function getDSByName(formConfig, dsName) {
   let resultDS = null;

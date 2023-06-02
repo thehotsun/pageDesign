@@ -38,10 +38,9 @@ import {
   generateId,
   getAllContainerWidgets,
   getAllFieldWidgets,
-  getDSByName, getFieldWidgetByName,
+  getFieldWidgetByName,
   insertCustomCssToHead,
-  insertGlobalFunctionsToHtml, overwriteObj,
-  runDataSourceRequest, traverseFieldWidgetsOfContainer
+  insertGlobalFunctionsToHtml, traverseFieldWidgetsOfContainer
 } from "@/utils/util"
 import i18n, { changeLocale } from "../../utils/i18n"
 
@@ -171,7 +170,6 @@ export default {
   },
   mounted () {
     this.initLocale()
-    this.initDataSetRequest()
     this.handleOnMounted()
     this.$on('updateOtherComp', (compNameList, params) => {
       console.log(compNameList, params, 'vformrender');
@@ -473,34 +471,6 @@ export default {
       return result
     },
 
-    initDataSetRequest () {
-      let dsNameSet = new Set()
-      let fwList = this.getFieldWidgets()
-      fwList.forEach(fw => {
-        if (!!fw.field.options.dsEnabled && !!fw.field.options.dsName && !!fw.field.options.dataSetName) {
-          dsNameSet.add(fw.field.options.dsName)
-        }
-      })
-
-      if (dsNameSet.size > 0) {
-        dsNameSet.forEach(async (dsName) => {
-          let curDS = getDSByName(this.formConfig, dsName)
-          if (!!curDS) {
-            let localDsv = new Object({})
-            overwriteObj(localDsv, this.globalDsv || {})
-            let dsResult = null
-            try {
-              dsResult = await runDataSourceRequest(curDS, localDsv, this, false, this.$message)
-              this.$set(this.dsResultCache, dsName, dsResult)
-              this.broadcast('FieldWidget', 'loadOptionItemsFromDataSet', [dsName])  //注意：跟Vue3不同，事件参数必须包含在数组中传递！！
-            } catch (err) {
-              this.$message.error(err.message)
-            }
-          }
-        })
-      }
-    },
-
     //--------------------- 以下为组件支持外部调用的API方法 begin ------------------//
     /* 提示：用户可自行扩充这些方法！！！ */
 
@@ -569,7 +539,6 @@ export default {
           this.insertCustomStyleAndScriptNode()  /* 必须先插入表单全局函数，否则VForm内部引用全局函数会报错！！！ */
           this.$nextTick(() => {
             this.initFormObject(false)
-            this.initDataSetRequest()
             this.handleOnMounted()
           })
         } else {
@@ -864,18 +833,7 @@ export default {
       return this.globalDsv
     },
 
-    /**
-     * 执行数据源请求
-     * @param dsName
-     * @param localDsv
-     */
-    async executeDataSource (dsName, localDsv = {}) {
-      let ds = getDSByName(this.formJsonObj.formConfig, dsName)
-      let newDsv = new Object({})
-      overwriteObj(newDsv, this.globalDsv)
-      overwriteObj(newDsv, localDsv)
-      return await runDataSourceRequest(ds, newDsv, this, false, this.$message)
-    },
+
 
     /**
      * 获取父级VFormRender组件实例

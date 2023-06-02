@@ -104,22 +104,7 @@ export default {
     },
 
   },
-  watch: {
-    // 'designer.widgetList': {
-    //   deep: true,
-    //   handler(val) {
-    //     //
-    //   }
-    // },
 
-    // 'designer.formConfig': {
-    //   deep: true,
-    //   handler(val) {
-    //     //
-    //   }
-    // },
-
-  },
   created () {
     //this.designer.initDesigner( !!this.getDesignerConfig().resetFormJson )  //此行代码已移动到form-designer，以便提前赋值formConfig！！
     this.designer.loadPresetCssCode(this.getDesignerConfig().presetCssCode)
@@ -144,7 +129,7 @@ export default {
     },
 
     onDragEnd (evt) {
-      //console.log('drag end000', evt)
+      console.log('drag end000', evt)
     },
 
     onDragAdd (evt) {

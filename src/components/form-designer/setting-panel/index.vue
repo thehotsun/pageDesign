@@ -11,8 +11,9 @@
                 <el-collapse-item name="1" v-if="showCollapse(commonProps)"
                   :title="i18nt('designer.setting.commonSetting')">
                   <template v-for="(editorName, propName) in commonProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                      :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
+                    <component :key="propName" v-if="hasPropEditor(propName, editorName)"
+                      :is="getPropEditor(propName, editorName)" :designer="designer" :selected-widget="selectedWidget"
+                      :option-model="optionModel"></component>
                   </template>
                 </el-collapse-item>
 
@@ -20,18 +21,9 @@
                   :title="i18nt('designer.setting.advancedSetting')">
                   <template v-for="(editorName, propName) in advProps">
 
-                    ff <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                      :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </el-collapse-item>
-
-                <el-collapse-item name="3" v-if="showEventCollapse() && showCollapse(eventProps)"
-                  :title="i18nt('designer.setting.eventSetting')">
-                  <template v-for="(editorName, propName) in eventProps">
-                    sddd
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                      :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"
-                      :event-handled="getEventHandled(propName)"></component>
+                    <component :key="propName" v-if="hasPropEditor(propName, editorName)"
+                      :is="getPropEditor(propName, editorName)" :designer="designer" :selected-widget="selectedWidget"
+                      :option-model="optionModel"></component>
                   </template>
                 </el-collapse-item>
               </el-collapse>
@@ -46,25 +38,18 @@
                 <el-collapse-item name="1" v-if="showCollapse(commonProps)"
                   :title="i18nt('designer.setting.commonSetting')">
                   <template v-for="(editorName, propName) in commonProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                      :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
+                    <component :key="propName" v-if="hasPropEditor(propName, editorName)"
+                      :is="getPropEditor(propName, editorName)" :designer="designer" :selected-widget="selectedWidget"
+                      :option-model="optionModel"></component>
                   </template>
                 </el-collapse-item>
 
                 <el-collapse-item name="2" v-if="showCollapse(advProps)"
                   :title="i18nt('designer.setting.advancedSetting')">
                   <template v-for="(editorName, propName) in advProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                      :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </el-collapse-item>
-
-                <el-collapse-item name="3" v-if="showEventCollapse() && showCollapse(eventProps)"
-                  :title="i18nt('designer.setting.eventSetting')">
-                  <template v-for="(editorName, propName) in eventProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                      :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"
-                      :event-handled="getEventHandled(propName)"></component>
+                    <component :key="propName" v-if="hasPropEditor(propName, editorName)"
+                      :is="getPropEditor(propName, editorName)" :designer="designer" :selected-widget="selectedWidget"
+                      :option-model="optionModel"></component>
                   </template>
                 </el-collapse-item>
               </el-collapse>
@@ -78,35 +63,18 @@
         </el-scrollbar>
       </el-tab-pane>
     </el-tabs>
-
-    <el-dialog :title="i18nt('designer.setting.editWidgetEventHandler')" :visible.sync="showWidgetEventDialogFlag"
-      v-if="showWidgetEventDialogFlag" :show-close="true" class="small-padding-dialog" v-dialog-drag append-to-body
-      :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
-      <el-alert type="info" :closable="false" :title="eventHeader"></el-alert>
-      <code-editor :mode="'javascript'" :readonly="false" v-model="eventHandlerCode" ref="ecEditor"></code-editor>
-      <el-alert type="info" :closable="false" title="}"></el-alert>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="showWidgetEventDialogFlag = false">
-          {{ i18nt('designer.hint.cancel') }}</el-button>
-        <el-button type="primary" @click="saveEventHandler">
-          {{ i18nt('designer.hint.confirm') }}</el-button>
-      </div>
-    </el-dialog>
-
   </el-container>
 </template>
 
 <script>
 import CodeEditor from '@/components/code-editor/index'
 import PropertyEditors from './property-editor/index'
-import FormSetting from './form-setting'
-import DataSourceSetting from './data-source-setting'
 import WidgetProperties from './propertyRegister'
 
 import i18n from "@/utils/i18n";
 import { propertyRegistered } from "./propertyRegister";
 
-const { COMMON_PROPERTIES, ADVANCED_PROPERTIES, EVENT_PROPERTIES } = WidgetProperties
+const { COMMON_PROPERTIES, ADVANCED_PROPERTIES } = WidgetProperties
 
 export default {
   name: "SettingPanel",
@@ -114,8 +82,6 @@ export default {
   mixins: [i18n],
   components: {
     CodeEditor,
-    FormSetting,
-    DataSourceSetting,
     ...PropertyEditors,
   },
   props: {
@@ -146,12 +112,7 @@ export default {
 
       commonProps: COMMON_PROPERTIES,
       advProps: ADVANCED_PROPERTIES,
-      eventProps: EVENT_PROPERTIES,
 
-      showWidgetEventDialogFlag: false,
-      eventHandlerCode: '',
-      curEventName: '',
-      eventHeader: '',
 
       subFormChildWidgetFlag: false,
     }
@@ -193,10 +154,6 @@ export default {
 
   },
   created () {
-    this.$on('editEventHandler', function (eventName, eventParams) {
-      this.editEventHandler(eventName, eventParams)
-    })
-
     this.designer.handleEvent('form-css-updated', (cssClassList) => {
       this.designer.setCssClassList(cssClassList)
     })
@@ -269,42 +226,6 @@ export default {
       }
 
       return result
-    },
-
-    editEventHandler (eventName, eventParams) {
-      this.curEventName = eventName
-      this.eventHeader = `${this.optionModel.name}.${eventName}(${eventParams.join(', ')}) {`
-      this.eventHandlerCode = this.selectedWidget.options[eventName] || ''
-
-      // 设置字段校验函数示例代码
-      if ((eventName === 'onValidate') && (!this.optionModel['onValidate'])) {
-        this.eventHandlerCode = "  /* sample code */\n  /*\n  if ((value > 100) || (value < 0)) {\n    callback(new Error('error message'))  //fail\n  } else {\n    callback();  //pass\n  }\n  */"
-      }
-
-      this.showWidgetEventDialogFlag = true
-    },
-
-    saveEventHandler () {
-      const codeHints = this.$refs.ecEditor.getEditorAnnotations()
-      let syntaxErrorFlag = false
-      if (!!codeHints && (codeHints.length > 0)) {
-        codeHints.forEach((chItem) => {
-          if (chItem.type === 'error') {
-            syntaxErrorFlag = true
-          }
-        })
-
-        if (syntaxErrorFlag) {
-          this.$message.error(this.i18nt('designer.setting.syntaxCheckWarning'))
-          return
-        }
-      }
-
-      //this.selectedWidget.options[this.curEventName] = this.eventHandlerCode
-      /* 注意：如果是options新增的事件属性，保存事件代码必须使用$set方法，！！ */
-      this.$set(this.selectedWidget.options, this.curEventName, this.eventHandlerCode)
-
-      this.showWidgetEventDialogFlag = false
     },
 
   }

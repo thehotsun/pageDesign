@@ -14,9 +14,9 @@ import {
 } from '@/utils/util';
 import {
   containers,
-  advancedFields,
-  basicFields,
-  customFields,
+  // advancedFields,
+  // basicFields,
+  // customFields,
 } from '@/components/form-designer/widget-panel/widgetsConfig.js';
 
 
@@ -788,9 +788,9 @@ export function createDesigner(vueInstance) {
     getContainerByType(typeName) {
       let allWidgets = [
         ...containers,
-        ...basicFields,
-        ...advancedFields,
-        ...customFields,
+        // ...basicFields,
+        // ...advancedFields,
+        // ...customFields,
         {
           type: 'dynamic-table',
           icon: 'table',
@@ -831,9 +831,9 @@ export function createDesigner(vueInstance) {
     getFieldWidgetByType(typeName) {
       let allWidgets = [
         ...containers,
-        ...basicFields,
-        ...advancedFields,
-        ...customFields,
+        // ...basicFields,
+        // ...advancedFields,
+        // ...customFields,
       ];
       let foundWidget = null;
       allWidgets.forEach((widget) => {
