@@ -1,7 +1,7 @@
 <template>
   <el-form :label-position="labelPosition" :size="size" :class="[customClass, readModeFlag ? 'readonly-mode-form' : '']"
-    class="render-form" :label-width="labelWidth" :validate-on-rule-change="false" :model="formDataModel" ref="renderForm"
-    @submit.native.prevent>
+    class="render-form full-height" :label-width="labelWidth" :validate-on-rule-change="false" :model="formDataModel"
+    ref="renderForm" @submit.native.prevent>
     <template v-for="(widget, index) in widgetList">
       <template v-if="'container' === widget.category">
         <component :is="getContainerWidgetName(widget)" :widget="widget" :key="widget.id" :parent-list="widgetList"
@@ -987,5 +987,13 @@ export default {
 <style lang="scss" scoped>
 .el-form ::v-deep .el-row {
   padding: 8px;
+  box-sizing: border-box;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.full-height {
+  height: 100%;
+  overflow: auto;
 }
 </style>

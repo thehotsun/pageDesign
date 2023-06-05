@@ -1,12 +1,12 @@
 <template>
-  <container-item-wrapper :widget="widget">
+  <container-item-wrapper ref="containerWrapper" :widget="widget">
 
     <el-row :gutter="widget.options.gutter" class="grid-container" :class="[customClass]" :ref="widget.id"
       v-show="!widget.options.hidden">
       <template v-for="(colWidget, colIdx) in widget.cols">
         <PageDesignGrid-col-item :widget="colWidget" :key="colIdx" :parent-list="widget.cols"
-          :index-of-parent-list="colIdx" :parent-widget="widget" :col-height="widget.options.colHeight"
-          :sub-form-row-id="subFormRowId" :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex">
+          :index-of-parent-list="colIdx" :parent-widget="widget" :sub-form-row-id="subFormRowId"
+          :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex">
           <!-- 递归传递插槽！！！ -->
           <template v-for="slot in Object.keys($scopedSlots)" v-slot:[slot]="scope">
             <slot :name="slot" v-bind="scope" />
@@ -61,8 +61,41 @@ export default {
   beforeDestroy () {
     this.unregisterFromRefList()
   },
-  methods: {
+  computed: {
+    colHeight () {
+      return this.widget.options.colHeight
+    },
+  },
+  watch: {
+    colHeight: {
+      immediate: true,
+      async handler (val) {
+        await this.$nextTick()
+        const dom = this.$refs.containerWrapper?.$el;
+        console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
+        if (dom && val) {
+          dom.style.height = this.formatterWidthOrHeightStyle(val)
+          dom.style['overflow-y'] = 'auto';
+        }
+      },
+    }
 
+  },
+  methods: {
+    // 格式化高度宽度
+    formatterWidthOrHeightStyle (length) {
+      length = length.trim()
+      if (/^\d+$/.test(length)) {
+        return `${length}px`
+      } else if (/^\d+(px)$/.test(length)) {
+        return length
+      } else if (/^\d+(%)$/.test(length)) {
+        return length
+      } else {
+        console.warn('栅格列统一高度输入的格式不正确！');
+        return ''
+      }
+    },
   },
 }
 </script>

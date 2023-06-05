@@ -1,9 +1,10 @@
 <template>
   <el-col v-if="widget.type === 'PageDesignGrid-col'" class="grid-cell" v-bind="layoutProps"
-    :class="[selected ? 'selected' : '', customClass]" :style="colHeightStyle" @click.native.stop="selectWidget(widget)">
+    :class="[selected ? 'selected' : '', customClass]" @click.native.stop="selectWidget(widget)">
     <draggable :list="widget.widgetList" v-bind="{ group: 'dragGroup', ghostClass: 'ghost', animation: 200 }"
       handle=".drag-handler" @end="(evt) => onGridDragEnd(evt, widget.widgetList)"
-      @add="(evt) => onGridDragAdd(evt, widget.widgetList)" @update="onGridDragUpdate" :move="checkContainerMove">
+      @add="(evt) => onGridDragAdd(evt, widget.widgetList)" @update="onGridDragUpdate" :move="checkContainerMove"
+      style="height: 100%">
       <transition-group name="fade" tag="div" class="form-widget-list">
         <template v-for="(subWidget, swIdx) in widget.widgetList">
           <template v-if="'container' === subWidget.category">
@@ -55,12 +56,6 @@ export default {
     parentList: Array,
     indexOfParentList: Number,
     designer: Object,
-
-    colHeight: {
-      type: String,
-      default: null
-    },
-
   },
   data () {
     return {
@@ -82,11 +77,7 @@ export default {
 
     customClass () {
       return this.widget.options.customClass || ''
-    },
-
-    colHeightStyle () {
-      return !!this.colHeight ? { height: this.colHeight + 'px' } : {}
-    },
+    }
 
   },
   watch: {
@@ -268,9 +259,11 @@ export default {
   padding: 3px;
   outline: 1px dashed #336699;
   position: relative;
+  height: 100%;
 
   .form-widget-list {
     min-height: 28px;
+    height: 100%;
   }
 
   .grid-col-action {

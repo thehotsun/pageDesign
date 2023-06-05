@@ -1,6 +1,5 @@
 <template>
-  <el-col class="grid-cell" :class="[customClass]" v-bind="layoutProps" :style="colHeightStyle"
-    v-show="!widget.options.hidden">
+  <el-col class="grid-cell" :class="[customClass]" v-bind="layoutProps" v-show="!widget.options.hidden">
     <template v-if="!!widget.widgetList && (widget.widgetList.length > 0)">
       <template v-for="(subWidget, swIdx) in widget.widgetList">
         <template v-if="'container' === subWidget.category">
@@ -49,12 +48,6 @@ export default {
     parentWidget: Object,
     parentList: Array,
     indexOfParentList: Number,
-
-    colHeight: {
-      type: String,
-      default: null
-    },
-
     subFormRowIndex: { /* 子表单组件行索引，从0开始计数 */
       type: Number,
       default: -1
@@ -90,10 +83,6 @@ export default {
 
     customClass () {
       return this.widget.options.customClass || ''
-    },
-
-    colHeightStyle () {
-      return !!this.colHeight ? { height: this.colHeight + 'px' } : {}
     },
 
   },

@@ -30,7 +30,7 @@
 
     <div class="drag-handler" v-if="designer.selectedId === widget.id && !widget.internal">
       <i class="el-icon-rank" :title="i18nt('designer.hint.dragHandler')"></i>
-      <i>{{ widget.typeName }}</i>
+      <i>{{ widget.priorName || widget.typeName }}</i>
       <i v-if="widget.options.hidden === true" class="iconfont icon-hide"></i>
     </div>
   </div>

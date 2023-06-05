@@ -222,8 +222,11 @@ export default {
 
     .form-widget-canvas {
       //min-height: calc(100vh - 56px - 68px);
-      min-height: 100%;
+      // min-height: 100%;
       padding: 3px;
+      height: 100%;
+      overflow-y: auto;
+
     }
   }
 
