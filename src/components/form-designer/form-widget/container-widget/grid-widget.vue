@@ -16,8 +16,8 @@
       @click.native.stop="selectWidget(widget)" style="margin: 2px">
       <template v-for="(colWidget, colIdx) in widget.cols">
         <PageDesignGrid-col-widget :widget="colWidget" :designer="designer" :key="colWidget.id" :parent-list="widget.cols"
-          :index-of-parent-list="colIdx" :parent-widget="widget" :parent-container-wrapper="$refs['container-wrapper']"
-          :col-height="widget.options.colHeight"></PageDesignGrid-col-widget>
+          :gird-height="widget.options.colHeight" :index-of-parent-list="colIdx" :parent-widget="widget"
+          :parent-container-wrapper="$refs.containerWrapper"></PageDesignGrid-col-widget>
       </template>
     </el-row>
 
@@ -28,7 +28,7 @@
 import i18n from "@/utils/i18n"
 import GridColWidget from "@/components/form-designer/form-widget/container-widget/grid-col-widget"
 import containerMixin from "@/components/form-designer/form-widget/container-widget/containerMixin"
-import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-wrapper"
+import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-gird-wrapper"
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
 import config from "@/defaultConfig/girdHeight"
 

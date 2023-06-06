@@ -9,7 +9,8 @@
         <template v-for="(subWidget, swIdx) in widget.widgetList">
           <template v-if="'container' === subWidget.category">
             <component :is="subWidget.type + '-widget'" :widget="subWidget" :designer="designer" :key="subWidget.id"
-              :parent-list="widget.widgetList" :index-of-parent-list="swIdx" :parent-widget="widget"></component>
+              :parent-list="widget.widgetList" :index-of-parent-list="swIdx" :parent-widget="widget" ref="childComp">
+            </component>
           </template>
           <template v-else>
             <component :is="subWidget.type + '-widget'" :field="subWidget" :designer="designer" :key="subWidget.id"
@@ -53,6 +54,8 @@ export default {
     Draggable,
   },
   props: {
+    parentContainerWrapper: Object,
+    girdHeight: String,
     widget: Object,
     parentWidget: Object,
     parentList: Array,
@@ -92,9 +95,8 @@ export default {
         await this.$nextTick()
         const dom = this.$refs.elCol?.$el;
         console.log(val, dom, this.$refs.elCol, 'colcolHeight');
-        if (dom) {
-          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : config.girdColHeight
-          dom.style['overflow-y'] = 'auto';
+        if (dom && val) {
+          dom.style.height = this.formatterWidthOrHeightStyle(val)
         }
       },
     },
@@ -217,9 +219,27 @@ export default {
       if (!!subList[newIndex]) {
         this.designer.setSelected(subList[newIndex])
       }
-
       this.designer.emitHistoryChange()
       this.designer.emitEvent('field-selected', this.widget)
+      this.$nextTick(() => {
+        if (!this.girdHeight) {
+          let summaryHeight = 0
+          this.$refs.childComp.map(component => {
+            const dom = component.$el.childNodes[0].childNodes[0];
+            if (dom) {
+              const height = getComputedStyle(dom).height
+              summaryHeight += (parseFloat(height) + 8)
+            }
+          })
+          this.parentContainerWrapper.$el.style.height = `${summaryHeight + 27}px`
+          const dom = this.$refs.elCol?.$el;
+          if (dom) {
+            dom.style.height = 'calc(100% - 0px)'
+          }
+          console.log(summaryHeight, 'onGridDragAdd');
+          // summaryHeight
+        }
+      })
     },
 
     onGridDragUpdate () {

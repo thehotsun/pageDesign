@@ -63,7 +63,7 @@ export default {
 
 <style lang="scss" scoped>
 .full-height {
-  height: fit-content;
+  height: calc(100% - 0px);
   overflow-y: auto;
   overflow-x: hidden;
 }
