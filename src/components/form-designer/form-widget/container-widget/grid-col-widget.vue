@@ -95,8 +95,8 @@ export default {
         await this.$nextTick()
         const dom = this.$refs.elCol?.$el;
         console.log(val, dom, this.$refs.elCol, 'colcolHeight');
-        if (dom && val) {
-          dom.style.height = this.formatterWidthOrHeightStyle(val)
+        if (dom) {
+          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : '100%'
         }
       },
     },
@@ -180,6 +180,8 @@ export default {
     this.initRefList()
     this.initLayoutProps()
   },
+  mounted () {
+  },
   methods: {
     // 格式化高度宽度
     formatterWidthOrHeightStyle (length) {
@@ -214,6 +216,42 @@ export default {
       //
     },
 
+    updateGirdHeight (isDel) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          if (!this.girdHeight) {
+            let summaryHeight = 0
+            this.$refs.childComp?.map(component => {
+              const dom = component.$el.childNodes[0].childNodes[0];
+              if (dom) {
+                console.log(dom, 'dom');
+                const height = getComputedStyle(dom).height;
+                summaryHeight += (parseFloat(height) + 8);
+              }
+            })
+            if (isDel) {
+              resolve(summaryHeight);
+              return
+            }
+            let latestHeight = 0;
+            let originHeight = latestHeight = parseFloat(this.parentContainerWrapper.$el.style.height);
+            originHeight = isNaN(originHeight) ? 0 : originHeight
+            if (originHeight < summaryHeight) {
+              latestHeight = summaryHeight
+              this.parentContainerWrapper.$el.style.height = `${summaryHeight + 27}px`;
+              const dom = this.$refs.elCol?.$el;
+              if (dom && !this.colHeight) {
+                dom.style.height = 'calc(100% - 0px)';
+              }
+            }
+            this.$emit('updateLatestHeight', latestHeight)
+            console.log(originHeight, summaryHeight, 'onGridDragAdd');
+            // summaryHeight
+          }
+        }, 700)
+      })
+    },
+
     onGridDragAdd (evt, subList) {
       const newIndex = evt.newIndex
       if (!!subList[newIndex]) {
@@ -221,25 +259,7 @@ export default {
       }
       this.designer.emitHistoryChange()
       this.designer.emitEvent('field-selected', this.widget)
-      this.$nextTick(() => {
-        if (!this.girdHeight) {
-          let summaryHeight = 0
-          this.$refs.childComp.map(component => {
-            const dom = component.$el.childNodes[0].childNodes[0];
-            if (dom) {
-              const height = getComputedStyle(dom).height
-              summaryHeight += (parseFloat(height) + 8)
-            }
-          })
-          this.parentContainerWrapper.$el.style.height = `${summaryHeight + 27}px`
-          const dom = this.$refs.elCol?.$el;
-          if (dom) {
-            dom.style.height = 'calc(100% - 0px)'
-          }
-          console.log(summaryHeight, 'onGridDragAdd');
-          // summaryHeight
-        }
-      })
+      this.updateGirdHeight()
     },
 
     onGridDragUpdate () {

@@ -34,7 +34,7 @@ export default {
 
 <style lang="scss" scoped>
 .full-height {
-  height: fit-content;
+  height: 100%;
   overflow-y: auto;
 }
 </style>

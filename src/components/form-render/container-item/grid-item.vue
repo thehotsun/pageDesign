@@ -1,6 +1,5 @@
 <template>
   <container-item-wrapper ref="containerWrapper" :widget="widget">
-
     <el-row :gutter="widget.options.gutter" class="grid-container full-height" :class="[customClass]" :ref="widget.id"
       v-show="!widget.options.hidden">
       <template v-for="(colWidget, colIdx) in widget.cols">
@@ -18,7 +17,7 @@
 import emitter from '@/utils/emitter'
 import i18n from "../../../utils/i18n"
 import refMixin from "@/components/form-render/refMixin.js"
-import ContainerItemWrapper from './container-item-wrapper'
+import ContainerItemWrapper from './container-item-gird-wrapper'
 import containerItemMixin from "./containerItemMixin"
 import gridColItem from './grid-col-item.vue';
 import config from "@/defaultConfig/girdHeight";
@@ -70,7 +69,7 @@ export default {
         const dom = this.$refs.containerWrapper?.$el;
         console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
         if (dom) {
-          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : config.girdHeight;
+          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) :  `${config.girdHeight}px`;
           dom.style['overflow-y'] = 'auto';
         }
       },

@@ -1,4 +1,4 @@
 export default {
-  girdHeight: '57px',
-  girdColHeight: '30px',
+  girdHeight: 57,
+  girdColHeight: 30,
 };

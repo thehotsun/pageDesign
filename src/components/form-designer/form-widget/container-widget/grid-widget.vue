@@ -17,7 +17,8 @@
       <template v-for="(colWidget, colIdx) in widget.cols">
         <PageDesignGrid-col-widget :widget="colWidget" :designer="designer" :key="colWidget.id" :parent-list="widget.cols"
           :gird-height="widget.options.colHeight" :index-of-parent-list="colIdx" :parent-widget="widget"
-          :parent-container-wrapper="$refs.containerWrapper"></PageDesignGrid-col-widget>
+          :parent-container-wrapper="$refs.containerWrapper" @updateLatestHeight="updateLatestHeight"
+          ref="cols"></PageDesignGrid-col-widget>
       </template>
     </el-row>
 
@@ -34,12 +35,17 @@ import config from "@/defaultConfig/girdHeight"
 
 export default {
   name: "PageDesignGrid-widget",
-  componentName: 'ContainerWidget',
+  componentName: 'girdContainerWidget',
   mixins: [i18n, containerMixin, refMixinDesign],
   inject: ['refList'],
   components: {
     ContainerWrapper,
     'PageDesignGrid-col-widget': GridColWidget
+  },
+  data () {
+    return {
+      latestHeight: 0
+    }
   },
   props: {
     widget: Object,
@@ -67,12 +73,7 @@ export default {
       immediate: true,
       async handler (val) {
         await this.$nextTick()
-        const dom = this.$refs.containerWrapper?.$el;
-        console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
-        if (dom) {
-          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : config.girdHeight
-          dom.style['overflow-y'] = 'auto';
-        }
+        this.setWrapHeight(val)
       },
     }
   },
@@ -80,12 +81,43 @@ export default {
     this.initRefList()
   },
   mounted () {
-    //
+    this.$on('updateHeight', async () => {
+      const highest = await this.getColsHighest(true);
+
+      console.log('updateHeight', highest);
+      this.updateLatestHeight(highest);
+      this.setWrapHeight(highest);
+    })
   },
   methods: {
+    async getColsHighest (isDel) {
+      let highest = 0;
+      const promises = []
+      this.$refs.cols.map(comp => {
+        promises.push(comp.updateGirdHeight(isDel))
+      })
+      const allHeight = await Promise.all(promises)
+      console.log(allHeight, 'allHeight');
+      highest = Math.max(...allHeight)
+      return highest + 27
+    },
+    setWrapHeight (val) {
+      const dom = this.$refs.containerWrapper?.$el;
+      console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
+      if (dom) {
+        dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : `${this.latestHeight ? this.latestHeight + 16 : config.girdHeight}px`
+        dom.style['overflow-y'] = 'auto';
+      }
+    },
+
+    updateLatestHeight (val) {
+      console.log(val, 'updateLatestHeight');
+      this.latestHeight = val
+    },
     // 格式化高度宽度
     formatterWidthOrHeightStyle (length) {
-      length = length.trim()
+      if (typeof length === 'number') return `${length}px`
+      length.trim();
       if (/^\d+$/.test(length)) {
         return `${length}px`
       } else if (/^\d+(px)$/.test(length)) {
