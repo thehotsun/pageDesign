@@ -1,25 +1,18 @@
 <template>
-  <el-col class="grid-cell" :class="[customClass]" v-bind="layoutProps" v-show="!widget.options.hidden">
+  <el-col class="grid-cell full-height" :class="[customClass]" v-bind="layoutProps" v-show="!widget.options.hidden"
+    ref="elCol">
     <template v-if="!!widget.widgetList && (widget.widgetList.length > 0)">
       <template v-for="(subWidget, swIdx) in widget.widgetList">
         <template v-if="'container' === subWidget.category">
           <component :is="getComponentByContainer(subWidget)" :widget="subWidget" :key="swIdx"
             :parent-list="widget.widgetList" :index-of-parent-list="swIdx" :parent-widget="widget"
             :sub-form-row-id="subFormRowId" :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex">
-            <!-- 递归传递插槽！！！ -->
-            <template v-for="slot in Object.keys($scopedSlots)" v-slot:[slot]="scope">
-              <slot :name="slot" v-bind="scope" />
-            </template>
           </component>
         </template>
         <template v-else>
           <component :is="subWidget.type + '-widget'" :field="subWidget" :designer="null" :key="swIdx"
             :parent-list="widget.widgetList" :index-of-parent-list="swIdx" :parent-widget="widget"
             :sub-form-row-id="subFormRowId" :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex">
-            <!-- 递归传递插槽！！！ -->
-            <template v-for="slot in Object.keys($scopedSlots)" v-slot:[slot]="scope">
-              <slot :name="slot" v-bind="scope" />
-            </template>
           </component>
         </template>
       </template>
@@ -37,8 +30,9 @@ import emitter from '@/utils/emitter'
 import i18n from "../../../utils/i18n"
 import refMixin from "@/components/form-render/refMixin.js"
 import componentsMixin from "./components-mixin.js"
-import { traverseFieldWidgetsOfContainer } from "@/utils/util"
-
+import { traverseFieldWidgetsOfContainer } from "@/utils/util";
+import config from "@/defaultConfig/girdHeight";
+console.log(config, 'config');
 export default {
   name: "PageDesignGrid-col-item",
   componentName: 'ContainerItem',
@@ -84,7 +78,23 @@ export default {
     customClass () {
       return this.widget.options.customClass || ''
     },
-
+    colHeight () {
+      return this.widget.options.colHeight
+    },
+  },
+  watch: {
+    colHeight: {
+      immediate: true,
+      async handler (val) {
+        await this.$nextTick()
+        const dom = this.$refs.elCol?.$el;
+        console.log(val, dom, this.$refs.elCol, 'colcolHeight');
+        if (dom) {
+          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : config.girdColHeight;
+          dom.style['overflow-y'] = 'auto';
+        }
+      },
+    },
   },
   created () {
     this.initLayoutProps()
@@ -155,5 +165,10 @@ export default {
   span.invisible-content {
     opacity: 0;
   }
+}
+
+.full-height {
+  height: 100%;
+  overflow-y: auto;
 }
 </style>

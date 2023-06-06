@@ -1,7 +1,7 @@
 <template>
   <div>
-    <el-form-item label="栅格列统一高度(px或%)">
-      <span slot="label">栅格列统一高度
+    <el-form-item label="高度(px或%)">
+      <span slot="label">高度(px或%)
         <el-tooltip effect="light" content="如只输入数字则默认单位为px，也可输入百分比">
           <i class="el-icon-info"></i></el-tooltip>
       </span>

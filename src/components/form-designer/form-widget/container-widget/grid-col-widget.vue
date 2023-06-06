@@ -1,6 +1,6 @@
 <template>
   <el-col v-if="widget.type === 'PageDesignGrid-col'" class="grid-cell" v-bind="layoutProps"
-    :class="[selected ? 'selected' : '', customClass]" @click.native.stop="selectWidget(widget)">
+    :class="[selected ? 'selected' : '', customClass]" @click.native.stop="selectWidget(widget)" ref="elCol">
     <draggable :list="widget.widgetList" v-bind="{ group: 'dragGroup', ghostClass: 'ghost', animation: 200 }"
       handle=".drag-handler" @end="(evt) => onGridDragEnd(evt, widget.widgetList)"
       @add="(evt) => onGridDragAdd(evt, widget.widgetList)" @update="onGridDragUpdate" :move="checkContainerMove"
@@ -42,6 +42,8 @@ import Draggable from 'vuedraggable'
 import i18n from "@/utils/i18n";
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
 import componentsMixin from "./components-mixin.js"
+import config from "@/defaultConfig/girdHeight"
+
 export default {
   name: "PageDesignGrid-col-widget",
   componentName: "GridColWidget",
@@ -77,10 +79,25 @@ export default {
 
     customClass () {
       return this.widget.options.customClass || ''
-    }
+    },
 
+    colHeight () {
+      return this.widget.options.colHeight
+    },
   },
   watch: {
+    colHeight: {
+      immediate: true,
+      async handler (val) {
+        await this.$nextTick()
+        const dom = this.$refs.elCol?.$el;
+        console.log(val, dom, this.$refs.elCol, 'colcolHeight');
+        if (dom) {
+          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : config.girdColHeight
+          dom.style['overflow-y'] = 'auto';
+        }
+      },
+    },
     'designer.formConfig.layoutType': {
       handler (val) {
         if (!!this.widget.options.responsive) {
@@ -162,6 +179,20 @@ export default {
     this.initLayoutProps()
   },
   methods: {
+    // 格式化高度宽度
+    formatterWidthOrHeightStyle (length) {
+      length = length.trim()
+      if (/^\d+$/.test(length)) {
+        return `${length}px`
+      } else if (/^\d+(px)$/.test(length)) {
+        return length
+      } else if (/^\d+(%)$/.test(length)) {
+        return length
+      } else {
+        console.warn('栅格列统一高度输入的格式不正确！');
+        return ''
+      }
+    },
     initLayoutProps () {
       if (!!this.widget.options.responsive) {
         let lyType = this.designer.formConfig.layoutType
@@ -260,16 +291,18 @@ export default {
   outline: 1px dashed #336699;
   position: relative;
   height: 100%;
+  overflow-y: auto;
 
   .form-widget-list {
     min-height: 28px;
     height: 100%;
+    overflow: auto;
   }
 
   .grid-col-action {
     position: absolute;
     bottom: 0;
-    right: -2px;
+    right: 0px;
     height: 28px;
     line-height: 28px;
     background: $--color-primary;

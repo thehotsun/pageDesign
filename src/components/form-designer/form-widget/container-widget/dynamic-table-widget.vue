@@ -63,10 +63,9 @@ export default {
 <style lang="scss" scoped>
 div.table-container {
 
-  padding: 5px;
+  // padding: 5px;
   border: 1px dashed #336699;
   box-sizing: border-box;
-  height: 600px;
 }
 
 .table-container.selected {

@@ -24,7 +24,7 @@ export default {
   },
   provide () {
     return {
-      updateOtherRelateComp: () => {}
+      updateOtherRelateComp: () => { }
     }
   },
   props: {
@@ -62,10 +62,9 @@ export default {
 
 <style lang="scss" scoped>
 div.form-container {
-  padding: 5px;
+  // padding: 5px;
   border: 1px dashed #336699;
   box-sizing: border-box;
-  min-height: 600px;
 }
 
 .table-container.selected {

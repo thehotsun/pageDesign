@@ -1,16 +1,12 @@
 <template>
   <container-item-wrapper ref="containerWrapper" :widget="widget">
 
-    <el-row :gutter="widget.options.gutter" class="grid-container" :class="[customClass]" :ref="widget.id"
+    <el-row :gutter="widget.options.gutter" class="grid-container full-height" :class="[customClass]" :ref="widget.id"
       v-show="!widget.options.hidden">
       <template v-for="(colWidget, colIdx) in widget.cols">
         <PageDesignGrid-col-item :widget="colWidget" :key="colIdx" :parent-list="widget.cols"
           :index-of-parent-list="colIdx" :parent-widget="widget" :sub-form-row-id="subFormRowId"
           :sub-form-row-index="subFormRowIndex" :sub-form-col-index="subFormColIndex">
-          <!-- 递归传递插槽！！！ -->
-          <template v-for="slot in Object.keys($scopedSlots)" v-slot:[slot]="scope">
-            <slot :name="slot" v-bind="scope" />
-          </template>
         </PageDesignGrid-col-item>
       </template>
     </el-row>
@@ -25,7 +21,7 @@ import refMixin from "@/components/form-render/refMixin.js"
 import ContainerItemWrapper from './container-item-wrapper'
 import containerItemMixin from "./containerItemMixin"
 import gridColItem from './grid-col-item.vue';
-
+import config from "@/defaultConfig/girdHeight";
 export default {
   name: "PageDesignGrid-item",  //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
   componentName: 'ContainerItem',
@@ -73,8 +69,8 @@ export default {
         await this.$nextTick()
         const dom = this.$refs.containerWrapper?.$el;
         console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
-        if (dom && val) {
-          dom.style.height = this.formatterWidthOrHeightStyle(val)
+        if (dom) {
+          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : config.girdHeight;
           dom.style['overflow-y'] = 'auto';
         }
       },
@@ -100,4 +96,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.full-height {
+  height: 100%;
+  overflow-y: auto;
+
+}
+</style>

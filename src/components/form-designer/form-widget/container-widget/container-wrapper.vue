@@ -9,8 +9,10 @@
 -->
 
 <template>
-  <div class="container-wrapper" :class="[customClass]">
-    <slot></slot>
+  <div class="container-wrapper full-height" :class="[customClass]">
+    <div class="full-height">
+      <slot></slot>
+    </div>
 
     <div class="container-action" v-if="designer.selectedId === widget.id && !widget.internal">
       <i class="el-icon-back" :title="i18nt('designer.hint.selectParentWidget')"
@@ -60,15 +62,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.full-height {
+  height: calc(100% - 0px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 .container-wrapper {
   position: relative;
   margin-bottom: 5px;
 
   .container-action {
     position: absolute;
-    //bottom: -30px;
     bottom: 0;
-    right: -2px;
+    right: 0px;
     height: 28px;
     line-height: 28px;
     background: $--color-primary;

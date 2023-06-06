@@ -13,7 +13,7 @@
     :index-of-parent-list="indexOfParentList" ref="containerWrapper">
 
     <el-row :gutter="widget.options.gutter" class="grid-container" :class="[selected ? 'selected' : '', customClass]"
-      @click.native.stop="selectWidget(widget)" style="margin: 0">
+      @click.native.stop="selectWidget(widget)" style="margin: 2px">
       <template v-for="(colWidget, colIdx) in widget.cols">
         <PageDesignGrid-col-widget :widget="colWidget" :designer="designer" :key="colWidget.id" :parent-list="widget.cols"
           :index-of-parent-list="colIdx" :parent-widget="widget" :parent-container-wrapper="$refs['container-wrapper']"
@@ -30,6 +30,7 @@ import GridColWidget from "@/components/form-designer/form-widget/container-widg
 import containerMixin from "@/components/form-designer/form-widget/container-widget/containerMixin"
 import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-wrapper"
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
+import config from "@/defaultConfig/girdHeight"
 
 export default {
   name: "PageDesignGrid-widget",
@@ -68,8 +69,8 @@ export default {
         await this.$nextTick()
         const dom = this.$refs.containerWrapper?.$el;
         console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
-        if (dom && val) {
-          dom.style.height = this.formatterWidthOrHeightStyle(val)
+        if (dom) {
+          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : config.girdHeight
           dom.style['overflow-y'] = 'auto';
         }
       },
@@ -102,11 +103,12 @@ export default {
 
 <style lang="scss" scoped>
 .el-row.grid-container {
-  min-height: 50px;
+  min-height: 40px;
   //line-height: 48px;
-  //padding: 6px;
+  padding: 6px !important;
+  box-sizing: border-box;
   outline: 1px dashed #336699;
-  height: 100%;
+  height: calc(100% - 4px);
   overflow: auto;
 
   .form-widget-list {
