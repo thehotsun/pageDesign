@@ -85,7 +85,7 @@ export default {
       const highest = await this.getColsHighest(true);
       console.log('updateHeight', highest);
       this.updateLatestHeight(highest);
-      this.setWrapHeight(highest);
+      this.setWrapHeight(null, highest);
     })
   },
   methods: {
@@ -100,13 +100,19 @@ export default {
       highest = Math.max(...allHeight)
       return highest + 27
     },
-    setWrapHeight (val) {
+    setWrapHeight (val, highest) {
       const dom = this.$refs.containerWrapper?.$el;
-      console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
+      console.log(val, 'colHeight');
       if (dom) {
-        const defaultHeight = this.widget.options?.defaultHeight?.value;
-        if (val < config.girdHeight) val = config.girdHeight;
-        dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : `${((defaultHeight + config.girdOffset) > config.girdHeight) ? (defaultHeight + config.girdOffset) : config.girdHeight}px`
+        const defaultHeight = this.widget.options?.defaultHeight?.value || 0;
+        let height
+        if (val) {
+          height = this.formatterWidthOrHeightStyle(val);
+        } else {
+          console.log(highest || 0, defaultHeight + config.girdOffset, config.girdHeight);
+          height = `${Math.max(highest || 0, defaultHeight + config.girdOffset, config.girdHeight)}px`
+        }
+        dom.style.height = height;
         dom.style['overflow-y'] = 'auto';
       }
     },
@@ -118,7 +124,7 @@ export default {
     // 格式化高度宽度
     formatterWidthOrHeightStyle (length) {
       if (typeof length === 'number') return `${length}px`
-      length.trim();
+      length = length.trim();
       if (/^\d+$/.test(length)) {
         return `${length}px`
       } else if (/^\d+(px)$/.test(length)) {

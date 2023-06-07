@@ -80,7 +80,7 @@ export default {
         } else {
           nextSelected = this.parentList[this.indexOfParentList + 1];
         }
-
+        console.log('removeWidget');
         this.$nextTick(() => {
           this.parentList.splice(this.indexOfParentList, 1);
           this.designer.setSelected(nextSelected);

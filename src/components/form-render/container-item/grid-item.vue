@@ -69,8 +69,14 @@ export default {
         const dom = this.$refs.containerWrapper?.$el;
         console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
         if (dom) {
-          const defaultHeight = this.widget.options?.defaultHeight?.value
-          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : `${((defaultHeight + config.girdOffset) > config.girdHeight) ? (defaultHeight + config.girdOffset) : config.girdHeight}px`;
+          const defaultHeight = this.widget.options?.defaultHeight?.value;
+          let height
+          if (val) {
+            height = this.formatterWidthOrHeightStyle(val);
+          } else {
+            height = `${Math.max(defaultHeight + config.girdOffset, config.girdHeight)}px`
+          }
+          dom.style.height = height;
           dom.style['overflow-y'] = 'auto';
         }
       },
@@ -80,6 +86,7 @@ export default {
   methods: {
     // 格式化高度宽度
     formatterWidthOrHeightStyle (length) {
+      if (typeof length === 'number') return `${length}px`
       length = length.trim()
       if (/^\d+$/.test(length)) {
         return `${length}px`

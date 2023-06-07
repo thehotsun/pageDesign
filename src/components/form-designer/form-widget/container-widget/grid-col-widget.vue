@@ -185,6 +185,7 @@ export default {
   methods: {
     // 格式化高度宽度
     formatterWidthOrHeightStyle (length) {
+      if (typeof length === 'number') return `${length}px`
       length = length.trim()
       if (/^\d+$/.test(length)) {
         return `${length}px`
@@ -313,8 +314,8 @@ export default {
           //if (!!nextSelected) {
           this.designer.setSelected(nextSelected)
           //}
-
           this.designer.emitHistoryChange()
+          this.dispatch('girdContainerWidget', 'updateHeight');
         })
       }
     },
