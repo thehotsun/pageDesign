@@ -17,7 +17,7 @@ $--color-primary: #409EFF;
     height: 3px;
     box-sizing: border-box;
     background: $--color-primary;
-    border: 2px solid $--color-primary;
+    outline: 2px solid $--color-primary;
     outline-width: 0;
     padding: 0;
     overflow: hidden;
@@ -57,6 +57,7 @@ $--color-primary: #409EFF;
 .el-card {
   margin-top: 3px;
   margin-bottom: 3px;
+  box-sizing: border-box;
 }
 
 .readonly-mode-form .el-form-item__content {

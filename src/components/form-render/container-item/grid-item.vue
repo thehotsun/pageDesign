@@ -69,7 +69,8 @@ export default {
         const dom = this.$refs.containerWrapper?.$el;
         console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
         if (dom) {
-          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) :  `${config.girdHeight}px`;
+          const defaultHeight = this.widget.options?.defaultHeight?.value
+          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : `${((defaultHeight + config.girdOffset) > config.girdHeight) ? (defaultHeight + config.girdOffset) : config.girdHeight}px`;
           dom.style['overflow-y'] = 'auto';
         }
       },

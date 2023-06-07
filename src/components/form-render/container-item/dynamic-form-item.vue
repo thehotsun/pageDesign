@@ -60,4 +60,8 @@ export default {
   width: 200px;
   height: 400px;
 }
+
+::v-deep .el-form-item--small.el-form-item {
+  margin-bottom: 10px;
+}
 </style>

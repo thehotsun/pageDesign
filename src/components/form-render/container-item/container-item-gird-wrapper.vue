@@ -9,7 +9,7 @@
 -->
 
 <template>
-  <div class="container-wrapper full-height" :class="[customClass]">
+  <div class="container-grid-wrapper full-height" :class="[customClass]">
     <slot></slot>
   </div>
 </template>
@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.full-height {
+.container-grid-wrapper.full-height {
   height: 100%;
   overflow-y: auto;
 }

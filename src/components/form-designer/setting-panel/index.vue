@@ -212,10 +212,12 @@ export default {
 
     showCollapse (propsObj) {
       let result = false
-
       for (let propName in propsObj) {
         if (!propsObj.hasOwnProperty(propName)) {
           continue
+        }
+        if (propsObj[propName]?.hideEditor) {
+          return false
         }
 
         if (this.hasPropEditor(propName, propsObj[propName])) {

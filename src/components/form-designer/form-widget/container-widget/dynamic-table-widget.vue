@@ -70,5 +70,6 @@ div.table-container {
 
 .table-container.selected {
   outline: 2px solid $--color-primary !important;
+  box-sizing: border-box;
 }
 </style>

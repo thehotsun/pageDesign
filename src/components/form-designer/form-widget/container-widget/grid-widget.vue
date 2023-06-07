@@ -44,7 +44,7 @@ export default {
   },
   data () {
     return {
-      latestHeight: 0
+      // latestHeight: 0
     }
   },
   props: {
@@ -75,7 +75,7 @@ export default {
         await this.$nextTick()
         this.setWrapHeight(val)
       },
-    }
+    },
   },
   created () {
     this.initRefList()
@@ -83,7 +83,6 @@ export default {
   mounted () {
     this.$on('updateHeight', async () => {
       const highest = await this.getColsHighest(true);
-
       console.log('updateHeight', highest);
       this.updateLatestHeight(highest);
       this.setWrapHeight(highest);
@@ -105,14 +104,16 @@ export default {
       const dom = this.$refs.containerWrapper?.$el;
       console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
       if (dom) {
-        dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : `${this.latestHeight ? this.latestHeight + 16 : config.girdHeight}px`
+        const defaultHeight = this.widget.options?.defaultHeight?.value;
+        if (val < config.girdHeight) val = config.girdHeight;
+        dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : `${((defaultHeight + config.girdOffset) > config.girdHeight) ? (defaultHeight + config.girdOffset) : config.girdHeight}px`
         dom.style['overflow-y'] = 'auto';
       }
     },
 
     updateLatestHeight (val) {
       console.log(val, 'updateLatestHeight');
-      this.latestHeight = val
+      this.widget.options.defaultHeight.value = val
     },
     // 格式化高度宽度
     formatterWidthOrHeightStyle (length) {
@@ -152,5 +153,6 @@ export default {
 .grid-container.selected,
 .grid-cell.selected {
   outline: 2px solid $--color-primary !important;
+  box-sizing: border-box;
 }
 </style>

@@ -33,7 +33,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.full-height {
+.container-wrapper.full-height {
   height: fit-content;
   overflow-y: auto;
 }

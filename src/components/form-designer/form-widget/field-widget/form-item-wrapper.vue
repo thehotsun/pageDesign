@@ -332,6 +332,7 @@
 
   .el-form-item.selected, .static-content-item.selected {
     outline: 2px solid $--color-primary;
+    box-sizing: border-box;
   }
 
   ::v-deep .label-left-align .el-form-item__label {

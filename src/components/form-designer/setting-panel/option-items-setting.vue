@@ -217,7 +217,8 @@
 
   li.ghost{
     background: #fff;
-    border: 2px dotted $--color-primary;
+    outline: 2px dotted $--color-primary;
+    box-sizing: border-box;
   }
 
   .drag-option {

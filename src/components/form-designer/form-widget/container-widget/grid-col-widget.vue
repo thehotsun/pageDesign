@@ -248,7 +248,7 @@ export default {
             console.log(originHeight, summaryHeight, 'onGridDragAdd');
             // summaryHeight
           }
-        }, 700)
+        }, 1000)
       })
     },
 
