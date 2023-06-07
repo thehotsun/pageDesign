@@ -44,6 +44,7 @@ import i18n from "@/utils/i18n";
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
 import componentsMixin from "./components-mixin.js"
 import config from "@/defaultConfig/girdHeight"
+import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
 
 export default {
   name: "PageDesignGrid-col-widget",
@@ -52,6 +53,7 @@ export default {
   inject: ['refList'],
   components: {
     Draggable,
+    ...FieldComponents,
   },
   props: {
     parentContainerWrapper: Object,
@@ -94,7 +96,7 @@ export default {
       async handler (val) {
         await this.$nextTick()
         const dom = this.$refs.elCol?.$el;
-        console.log(val, dom, this.$refs.elCol, 'colcolHeight');
+        console.log(val, 'colcolHeight');
         if (dom) {
           dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : '100%'
         }

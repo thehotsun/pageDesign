@@ -39,6 +39,26 @@
               </draggable>
             </el-collapse-item>
 
+            <el-collapse-item name="4" title="本地组件">
+              <draggable tag="ul" :list="componentList" :group="{ name: 'dragGroup', pull: 'clone', put: false }"
+                :move="checkFieldMove" :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
+                <li v-for="(fld, index) in componentList" :key="index" class="field-widget-item" :title="fld.displayName"
+                  @dblclick="addFieldByDbClick(fld)">
+                  <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{ fld.priorName }}</span>
+                </li>
+              </draggable>
+            </el-collapse-item>
+
+            <el-collapse-item name="5" :title="i18nt('designer.basicFieldTitle')">
+              <draggable tag="ul" :list="basicFields" :group="{ name: 'dragGroup', pull: 'clone', put: false }"
+                :move="checkFieldMove" :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
+                <li v-for="(fld, index) in basicFields" :key="index" class="field-widget-item" :title="fld.displayName"
+                  @dblclick="addFieldByDbClick(fld)">
+                  <span><svg-icon :icon-class="fld.icon" class-name="color-svg-icon" />{{ getWidgetLabel(fld) }}</span>
+                </li>
+              </draggable>
+            </el-collapse-item>
+
           </el-collapse>
 
         </el-tab-pane>
@@ -53,7 +73,7 @@
 <script>
 import Draggable from 'vuedraggable'
 import SvgIcon from '@/components/svg-icon'
-import { containers } from "./widgetsConfig"
+import { containers, basicFields } from "./widgetsConfig"
 import i18n, { getLocale } from "@/utils/i18n"
 
 export default {
@@ -66,21 +86,53 @@ export default {
   props: {
     designer: Object,
   },
-  inject: ['getBannedWidgets', 'getDesignerConfig', 'queryTableListAndFromList', 'getPageInfo'],
+  inject: {
+    getBannedWidgets: {
+      value: 'getBannedWidgets',
+    },
+    getDesignerConfig: {
+      value: 'getDesignerConfig',
+    },
+    queryTableListAndFromList: {
+      value: 'queryTableListAndFromList',
+    },
+    getPageInfo: {
+      value: 'getPageInfo',
+    },
+    componentDicList: {
+      value: 'componentDicList',
+      default: [{
+        cnName: '流程组件',
+        id: 'flowComp'
+      }]
+    },
+  },
   data () {
     return {
       designerConfig: this.getDesignerConfig(),
       firstTab: 'componentLib',
-      activeNames: ['1', '2', '3', '4'],
+      activeNames: ['1', '2', '3', '4', '5'],
       tableList: [],
       formList: [],
       containers,
+      basicFields,
     }
   },
   computed: {
     pageInfo () {
       return this.getPageInfo()
+    },
+    componentList () {
+      const options = []
+      this.componentDicList.map(item => {
+        const option = { type: "component-list", icon: 'sub-form', componentId: '', category: "container", priorName: "本地组件", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
+        option.priorName = item.cnName
+        option.componentId = item.id
+        options.push(option)
+      })
+      return options
     }
+
   },
   watch: {
     pageInfo: {
@@ -160,6 +212,15 @@ export default {
         }
       }).filter(con => {
         return !con.internal && !this.isBanned(con.type)
+      })
+
+      this.basicFields = this.basicFields.map(fld => {
+        return {
+          ...fld,
+          displayName: this.i18n2t(`designer.widgetLabel.${fld.type}`, `extension.widgetLabel.${fld.type}`)
+        }
+      }).filter(fld => {
+        return !this.isBanned(fld.type)
       })
 
     },

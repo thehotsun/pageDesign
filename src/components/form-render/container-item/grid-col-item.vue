@@ -88,7 +88,7 @@ export default {
       async handler (val) {
         await this.$nextTick()
         const dom = this.$refs.elCol?.$el;
-        console.log(val, dom, this.$refs.elCol, 'colcolHeight');
+        console.log(val, 'colcolHeight');
         if (dom) {
           dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : config.girdColHeight;
           dom.style['overflow-y'] = 'auto';
