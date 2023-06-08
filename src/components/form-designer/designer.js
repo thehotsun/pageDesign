@@ -856,7 +856,7 @@ export function createDesigner(vueInstance) {
       if (!originalWidget || !originalWidget.options) {
         return false;
       }
-
+      
       return Object.keys(originalWidget.options).indexOf(configName) > -1;
     },
 

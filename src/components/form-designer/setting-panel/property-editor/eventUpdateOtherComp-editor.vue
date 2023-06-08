@@ -33,7 +33,7 @@ export default {
       console.log(widgetList, 'widgetList');
       const list = []
       widgetList?.map(item => {
-        if (/^(dynamictable|dynamicform).*/g.test(item.id)) {
+        if (/^(dynamictable|dynamicform|localcode).*/g.test(item.id)) {
           if (item.id !== this.selectedWidget.id) {
             list.push({
               value: item.id,

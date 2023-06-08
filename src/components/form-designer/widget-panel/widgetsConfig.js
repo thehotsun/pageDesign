@@ -19,20 +19,6 @@ export const containers = [
     },
   },
 
-  // {
-  //   type: 'tab',
-  //   category: 'container',
-  //   icon: 'tab',
-  //   displayType: 'border-card',
-  //   tabs: [],
-  //   options: {
-  //     name: '',
-  //     hidden: false,
-  //     customClass: '', //自定义css类名
-  //     onTabClick: '', //tab被选中时触发
-  //   },
-  // },
-
   {
     type: 'PageDesignGrid-col',
     category: 'container',
@@ -54,7 +40,6 @@ export const containers = [
       customClass: '', //自定义css类名
     },
   },
-
   // {
   //   type: 'tab-pane',
   //   category: 'container',
@@ -73,7 +58,6 @@ export const containers = [
 ];
 
 export const basicFields = [
-
   {
     type: 'static-text',
     icon: 'static-text',
@@ -110,7 +94,7 @@ export const basicFields = [
       onMounted: '',
     },
   },
-  
+
   {
     type: 'divider',
     icon: 'divider',

@@ -1,17 +1,19 @@
 <template>
   <container-item-wrapper :widget="widget" v-show="!widget.options.hidden">
-    <VFRuntime ref='VFRuntime' :hasSubmit='false' :formId="widget.pageId"></VFRuntime>
+    <component :key="widget.options.componentId" ref="localCodeComp" v-if="relateComponent" :is="relateComponent">
+    </component>
   </container-item-wrapper>
 </template>
 
 <script>
 import emitter from '@/utils/emitter'
 import i18n from "../../../utils/i18n"
-import refMixin from "@/components/form-render/refMixin"
+import refMixin from "../refMixin.js"
 import ContainerItemWrapper from './container-item-wrapper'
 import containerItemMixin from "./containerItemMixin";
+
 export default {
-  name: "dynamic-form-item",
+  name: "local-code-item",
   componentName: 'ContainerItem',
   mixins: [emitter, i18n, refMixin, containerItemMixin],
   components: {
@@ -20,14 +22,25 @@ export default {
   props: {
     widget: Object,
   },
+  inject: ['refList', 'sfRefList', 'globalModel', 'previewMode', 'componentList'],
   provide () {
     return {
       updateOtherRelateComp: this.updateOtherComp
     }
   },
-  inject: ['refList', 'sfRefList', 'globalModel'],
   data () {
     return {
+      relateComponent: null
+    }
+  },
+  watch: {
+    'widget.componentId': {
+      immediate: true,
+      handler (val) {
+        if (val) {
+          this.getComponent(val)
+        }
+      }
     }
   },
   computed: {
@@ -41,15 +54,20 @@ export default {
     this.unregisterFromRefList()
   },
   methods: {
-    updateOtherComp (params) {
+    getComponent (val) {
+      this.relateComponent = this.componentList.find(
+        (item) => item.id === val
+      )?.component;
+    },
+    updateOtherComp (data) {
+      console.log('local-code-item, updateOtherRelateComp');
       /* 必须用dispatch向指定父组件派发消息！！ */
-      console.log('dynamic-form-item, updateOtherComp');
       this.dispatch('VFormRender', 'updateOtherComp',
-        [this.widget.options.eventUpdateOtherComp, params])
+        [this.widget.options.eventUpdateOtherComp, data])
     },
     refreshData (params) {
-      console.log(params, 'formrefreshData');
-      this.$refs.VFRuntime?.refreshData(params)
+      console.log(params, 'localCodeComprefreshData');
+      this.$refs.localCodeComp?.refreshData(params)
     }
   },
 }
@@ -59,9 +77,5 @@ export default {
 .aaaa {
   width: 200px;
   height: 400px;
-}
-
-::v-deep .el-form-item--small.el-form-item {
-  margin-bottom: 10px;
 }
 </style>

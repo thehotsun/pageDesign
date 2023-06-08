@@ -15,10 +15,8 @@ export default {
     dispatch(componentName, eventName, params) {
       let parent = this.$parent || this.$root;
       let name = parent.$options.componentName;
-      console.log('dispatch');
       while (parent && (!name || name !== componentName)) {
         parent = parent.$parent;
-        console.log(componentName, eventName, parent.$options.componentName);
         if (parent) {
           name = parent.$options.componentName;
         }

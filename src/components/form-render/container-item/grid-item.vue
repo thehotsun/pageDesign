@@ -22,7 +22,7 @@ import containerItemMixin from "./containerItemMixin"
 import gridColItem from './grid-col-item.vue';
 import config from "@/defaultConfig/girdHeight";
 export default {
-  name: "PageDesignGrid-item",  //grid-item跟VueGridLayout全局注册组件重名，故特殊处理！！
+  name: "PageDesignGrid-item",
   componentName: 'ContainerItem',
   mixins: [emitter, i18n, refMixin, containerItemMixin],
   components: {

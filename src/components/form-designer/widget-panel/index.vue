@@ -125,7 +125,7 @@ export default {
     componentList () {
       const options = []
       this.componentDicList.map(item => {
-        const option = { type: "component-list", icon: 'sub-form', componentId: '', category: "container", priorName: "本地组件", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
+        const option = { type: "local-code", icon: 'slot-field', componentId: '', category: "container", priorName: "本地组件", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
         option.priorName = item.cnName
         option.componentId = item.id
         options.push(option)

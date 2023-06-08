@@ -15,7 +15,7 @@ import containerMixin from "@/components/form-designer/form-widget/container-wid
 import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-wrapper"
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
 export default {
-  name: "component-list-widget",
+  name: "local-code-widget",
   componentName: 'ContainerWidget',
   mixins: [i18n, containerMixin, refMixinDesign],
   inject: ['refList'],

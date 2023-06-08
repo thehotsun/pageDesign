@@ -197,7 +197,7 @@ export default {
       }
 
       let originalPropName = propName.replace(this.selectedWidget.type + '-', '')  //去掉组件名称前缀-，如果有的话！！
-      return this.designer.hasConfig(this.selectedWidget, originalPropName)
+      return Object.keys(this.selectedWidget.options).indexOf(originalPropName) > -1
     },
 
     getPropEditor (propName, editorName) {
@@ -216,9 +216,9 @@ export default {
         if (!propsObj.hasOwnProperty(propName)) {
           continue
         }
-        if (propsObj[propName]?.hideEditor) {
-          return false
-        }
+        // if (propsObj[propName]?.hideEditor) {
+        //   return false
+        // }
 
         if (this.hasPropEditor(propName, propsObj[propName])) {
           result = true
