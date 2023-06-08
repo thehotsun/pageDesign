@@ -22,7 +22,22 @@ export default {
   props: {
     widget: Object,
   },
-  inject: ['refList', 'sfRefList', 'globalModel', 'previewMode', 'componentList'],
+  inject: {
+    refList: {
+      value: 'refList'
+    },
+    sfRefList: {
+      value: 'sfRefList'
+    },
+    globalModel: {
+      value: 'globalModel'
+    },
+    componentList: {
+      value: 'componentList',
+      default: []
+    },
+
+  },
   provide () {
     return {
       updateOtherRelateComp: this.updateOtherComp

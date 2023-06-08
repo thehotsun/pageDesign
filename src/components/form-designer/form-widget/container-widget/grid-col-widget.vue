@@ -44,7 +44,7 @@ import i18n from "@/utils/i18n";
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
 import componentsMixin from "./components-mixin.js"
 import config from "@/defaultConfig/girdHeight"
-import FieldComponents from '@/components/form-designer/form-widget/field-widget/index'
+
 
 export default {
   name: "PageDesignGrid-col-widget",
@@ -53,7 +53,6 @@ export default {
   inject: ['refList'],
   components: {
     Draggable,
-    ...FieldComponents,
   },
   props: {
     parentContainerWrapper: Object,

@@ -42,7 +42,6 @@ import i18n from "@/utils/i18n"
 import refMixin from "@/components/form-render/refMixin"
 import ContainerItemWrapper from '@/components/form-render/container-item/container-item-wrapper'
 import containerItemMixin from "@/components/form-render/container-item/containerItemMixin"
-// import FieldComponents  from '@/components/form-designer/form-widget/field-widget/index'
 
 export default {
   name: "card-item",
@@ -50,7 +49,6 @@ export default {
   mixins: [emitter, i18n, refMixin, containerItemMixin],
   components: {
     ContainerItemWrapper,
-    // ...FieldComponents,
   },
   props: {
     widget: Object,
