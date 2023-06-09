@@ -10,10 +10,11 @@ import i18n from "../../../utils/i18n"
 import refMixin from "@/components/form-render/refMixin"
 import ContainerItemWrapper from './container-item-wrapper'
 import containerItemMixin from "./containerItemMixin";
+import filedCompHeightReactiveMixins from "../filedCompHeightReactiveMixins.js"
 export default {
   name: "dynamic-form-item",
   componentName: 'ContainerItem',
-  mixins: [emitter, i18n, refMixin, containerItemMixin],
+  mixins: [emitter, i18n, refMixin, containerItemMixin, filedCompHeightReactiveMixins],
   components: {
     ContainerItemWrapper,
   },
@@ -29,8 +30,6 @@ export default {
   data () {
     return {
     }
-  },
-  computed: {
   },
   created () {
     this.initRefList()

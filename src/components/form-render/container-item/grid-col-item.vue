@@ -32,7 +32,7 @@ import refMixin from "@/components/form-render/refMixin.js"
 import componentsMixin from "./components-mixin.js"
 import { traverseFieldWidgetsOfContainer } from "@/utils/util";
 import config from "@/defaultConfig/girdHeight";
-console.log(config, 'config');
+import { formatterWidthOrHeightStyle } from '@/utils/util'
 export default {
   name: "PageDesignGrid-col-item",
   componentName: 'ContainerItem',
@@ -90,8 +90,7 @@ export default {
         const dom = this.$refs.elCol?.$el;
         console.log(val, 'colcolHeight');
         if (dom) {
-          dom.style.height = val ? this.formatterWidthOrHeightStyle(val) : config.girdColHeight;
-          dom.style['overflow-y'] = 'auto';
+          dom.style.height = val ? formatterWidthOrHeightStyle(val) : '100%';
         }
       },
     },

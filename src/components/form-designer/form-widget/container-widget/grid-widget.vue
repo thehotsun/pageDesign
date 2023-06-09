@@ -32,6 +32,7 @@ import containerMixin from "@/components/form-designer/form-widget/container-wid
 import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-gird-wrapper"
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
 import config from "@/defaultConfig/girdHeight"
+import { formatterWidthOrHeightStyle } from '@/utils/util'
 
 export default {
   name: "PageDesignGrid-widget",
@@ -107,34 +108,18 @@ export default {
         const defaultHeight = this.widget.options?.defaultHeight?.value || 0;
         let height
         if (val) {
-          height = this.formatterWidthOrHeightStyle(val);
+          height = formatterWidthOrHeightStyle(val);
         } else {
           console.log(highest || 0, defaultHeight + config.girdOffset, config.girdHeight);
           height = `${Math.max(highest || 0, defaultHeight + config.girdOffset, config.girdHeight)}px`
         }
         dom.style.height = height;
-        dom.style['overflow-y'] = 'auto';
       }
     },
 
     updateLatestHeight (val) {
       console.log(val, 'updateLatestHeight');
       this.widget.options.defaultHeight.value = val
-    },
-    // 格式化高度宽度
-    formatterWidthOrHeightStyle (length) {
-      if (typeof length === 'number') return `${length}px`
-      length = length.trim();
-      if (/^\d+$/.test(length)) {
-        return `${length}px`
-      } else if (/^\d+(px)$/.test(length)) {
-        return length
-      } else if (/^\d+(%)$/.test(length)) {
-        return length
-      } else {
-        console.warn('栅格列统一高度输入的格式不正确！');
-        return ''
-      }
     },
   }
 }

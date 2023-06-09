@@ -1,6 +1,6 @@
 <template>
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
-    :index-of-parent-list="indexOfParentList">
+    :index-of-parent-list="indexOfParentList" ref="elCol">
 
     <div class="component-container" :class="[selected ? 'selected' : '', customClass]"
       @click.stop="selectWidget(widget)">
@@ -12,12 +12,14 @@
 <script>
 import i18n from "@/utils/i18n"
 import containerMixin from "@/components/form-designer/form-widget/container-widget/containerMixin"
+import filedCompHeightReactiveMixins from "@/components/form-designer/form-widget/filedCompHeightReactiveMixins"
 import ContainerWrapper from "@/components/form-designer/form-widget/container-widget/container-wrapper"
 import refMixinDesign from "@/components/form-designer/refMixinDesign"
+
 export default {
   name: "local-code-widget",
   componentName: 'ContainerWidget',
-  mixins: [i18n, containerMixin, refMixinDesign],
+  mixins: [i18n, containerMixin, refMixinDesign, filedCompHeightReactiveMixins],
   inject: ['refList'],
   components: {
     ContainerWrapper,
@@ -44,9 +46,6 @@ export default {
       updateOtherRelateComp: () => { }
     }
   },
-  watch: {
-    //
-  },
   created () {
     this.initRefList()
   },
@@ -68,8 +67,9 @@ div.component-container {
   box-sizing: border-box;
   width: calc(100% - 4px);
   margin: 2px auto;
-  height: 200px;
+  min-height: 200px;
   // margin-bottom: 10px;
+  height: calc(100% - 4px);
   background: #fff;
 }
 

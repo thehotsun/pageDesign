@@ -19,7 +19,6 @@ import {
   // customFields,
 } from '@/components/form-designer/widget-panel/widgetsConfig.js';
 
-
 export function createDesigner(vueInstance) {
   let defaultFormConfig = deepClone(getDefaultFormConfig());
 
@@ -856,7 +855,7 @@ export function createDesigner(vueInstance) {
       if (!originalWidget || !originalWidget.options) {
         return false;
       }
-      
+
       return Object.keys(originalWidget.options).indexOf(configName) > -1;
     },
 
@@ -915,7 +914,9 @@ export function createDesigner(vueInstance) {
         newGrid.id = newGrid.type + generateId();
         newGrid.options.name = newGrid.id;
         containWidget.cols.forEach((gridCol) => {
-          let newGridCol = deepClone(this.getContainerByType('PageDesignGrid-col'));
+          let newGridCol = deepClone(
+            this.getContainerByType('PageDesignGrid-col')
+          );
           let tmpId = generateId();
           newGridCol.id = 'PageDesignGrid-col-' + tmpId;
           newGridCol.options.name = 'gridCol' + tmpId;
@@ -1008,8 +1009,6 @@ export function createDesigner(vueInstance) {
       let tempId = generateId();
       newWidget.id = newWidget.type.replace(/-/g, '') + tempId;
       newWidget.options.name = newWidget.id;
-      newWidget.options.label =
-        newWidget.options.label || newWidget.type.toLowerCase();
 
       delete newWidget.displayName;
       return newWidget;
@@ -1031,18 +1030,6 @@ export function createDesigner(vueInstance) {
         newCol.id = 'PageDesignGrid-col-' + tmpId;
         newCol.options.name = 'gridCol' + tmpId;
         newCon.cols.push(newCol);
-      } else if (newCon.type === 'table') {
-        let newRow = { cols: [] };
-        newRow.id = 'table-row-' + generateId();
-        newRow.merged = false;
-        let newCell = deepClone(this.getContainerByType('table-cell'));
-        newCell.id = 'table-cell-' + generateId();
-        newCell.options.name = newCell.id;
-        newCell.merged = false;
-        newCell.options.colspan = 1;
-        newCell.options.rowspan = 1;
-        newRow.cols.push(newCell);
-        newCon.rows.push(newRow);
       } else if (newCon.type === 'tab') {
         let newTabPane = deepClone(this.getContainerByType('tab-pane'));
         newTabPane.id = 'tab-pane-' + generateId();
@@ -1059,6 +1046,7 @@ export function createDesigner(vueInstance) {
     addContainerByDbClick(container) {
       let newCon = this.copyNewContainerWidget(container);
       this.widgetList.push(newCon);
+
       this.setSelected(newCon);
     },
 

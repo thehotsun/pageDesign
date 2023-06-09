@@ -21,6 +21,7 @@ import ContainerItemWrapper from './container-item-gird-wrapper'
 import containerItemMixin from "./containerItemMixin"
 import gridColItem from './grid-col-item.vue';
 import config from "@/defaultConfig/girdHeight";
+import { formatterWidthOrHeightStyle } from '@/utils/util'
 export default {
   name: "PageDesignGrid-item",
   componentName: 'ContainerItem',
@@ -72,33 +73,17 @@ export default {
           const defaultHeight = this.widget.options?.defaultHeight?.value;
           let height
           if (val) {
-            height = this.formatterWidthOrHeightStyle(val);
+            height = formatterWidthOrHeightStyle(val);
           } else {
             height = `${Math.max(defaultHeight + config.girdOffset, config.girdHeight)}px`
           }
           dom.style.height = height;
-          dom.style['overflow-y'] = 'auto';
         }
       },
     }
 
   },
   methods: {
-    // 格式化高度宽度
-    formatterWidthOrHeightStyle (length) {
-      if (typeof length === 'number') return `${length}px`
-      length = length.trim()
-      if (/^\d+$/.test(length)) {
-        return `${length}px`
-      } else if (/^\d+(px)$/.test(length)) {
-        return length
-      } else if (/^\d+(%)$/.test(length)) {
-        return length
-      } else {
-        console.warn('栅格列统一高度输入的格式不正确！');
-        return ''
-      }
-    },
   },
 }
 </script>

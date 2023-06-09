@@ -1,5 +1,5 @@
 <template>
-  <container-item-wrapper :widget="widget" v-show="!widget.options.hidden">
+  <container-item-wrapper :widget="widget" v-show="!widget.options.hidden" ref="containerWrapper">
     <component :key="widget.options.componentId" ref="localCodeComp" v-if="relateComponent" :is="relateComponent">
     </component>
   </container-item-wrapper>
@@ -11,11 +11,11 @@ import i18n from "../../../utils/i18n"
 import refMixin from "../refMixin.js"
 import ContainerItemWrapper from './container-item-wrapper'
 import containerItemMixin from "./containerItemMixin";
-
+import filedCompHeightReactiveMixins from "../filedCompHeightReactiveMixins.js"
 export default {
   name: "local-code-item",
   componentName: 'ContainerItem',
-  mixins: [emitter, i18n, refMixin, containerItemMixin],
+  mixins: [emitter, i18n, refMixin, containerItemMixin, filedCompHeightReactiveMixins],
   components: {
     ContainerItemWrapper,
   },
@@ -57,8 +57,6 @@ export default {
         }
       }
     }
-  },
-  computed: {
   },
   created () {
     this.initRefList()

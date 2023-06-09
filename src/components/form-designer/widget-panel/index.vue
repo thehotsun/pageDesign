@@ -125,7 +125,7 @@ export default {
     componentList () {
       const options = []
       this.componentDicList.map(item => {
-        const option = { type: "local-code", icon: 'slot-field', componentId: '', category: "container", priorName: "本地组件", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
+        const option = { type: "local-code", icon: 'slot-field', componentId: '', category: "container", priorName: "本地组件", options: { name: "", "customClass": "", colHeight: null, hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
         option.priorName = item.cnName
         option.componentId = item.id
         options.push(option)
@@ -151,7 +151,7 @@ export default {
     convartFormList (list) {
       const options = []
       list.map(item => {
-        const option = { type: "dynamic-form", icon: 'sub-form', pageId: '', pageCode: '', category: "container", priorName: "动态表单", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
+        const option = { type: "dynamic-form", icon: 'sub-form', pageId: '', pageCode: '', category: "container", priorName: "动态表单", options: { name: "", "customClass": "", colHeight: null, hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
         option.priorName = item.formName
         option.pageId = item.formId
         option.pageCode = item.formCode
@@ -162,7 +162,7 @@ export default {
     convartTableList (list) {
       const options = []
       list.map(item => {
-        const option = { type: "dynamic-table", icon: 'table', pageId: '', pageCode: '', category: "container", priorName: "动态列表", options: { name: "", "customClass": "", hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
+        const option = { type: "dynamic-table", icon: 'table', pageId: '', pageCode: '', category: "container", priorName: "动态列表", options: { name: "", "customClass": "", colHeight: null, hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
         option.priorName = item.listPageName
         option.pageId = item.listPageId
         option.pageCode = item.listPageCode

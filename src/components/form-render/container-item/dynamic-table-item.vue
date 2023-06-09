@@ -1,5 +1,5 @@
 <template>
-  <container-item-wrapper :widget="widget" v-show="!widget.options.hidden">
+  <container-item-wrapper :widget="widget" v-show="!widget.options.hidden" ref="elCol">
     <table-render ref="tableRender" :relate-id="widget.pageId" :form-code="widget.pageCode"
       :previewMode="previewMode"></table-render>
   </container-item-wrapper>
@@ -9,13 +9,13 @@
 import emitter from '@/utils/emitter'
 import i18n from "../../../utils/i18n"
 import refMixin from "../refMixin.js"
+import filedCompHeightReactiveMixins from "../filedCompHeightReactiveMixins.js"
 import ContainerItemWrapper from './container-item-wrapper'
 import containerItemMixin from "./containerItemMixin";
-
 export default {
   name: "dynamic-table-item",
   componentName: 'ContainerItem',
-  mixins: [emitter, i18n, refMixin, containerItemMixin],
+  mixins: [emitter, i18n, refMixin, containerItemMixin, filedCompHeightReactiveMixins],
   components: {
     ContainerItemWrapper,
   },
@@ -31,8 +31,6 @@ export default {
   data () {
     return {
     }
-  },
-  computed: {
   },
   created () {
     this.initRefList()

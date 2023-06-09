@@ -1,5 +1,20 @@
 import Clipboard from 'clipboard';
 
+export function formatterWidthOrHeightStyle(length) {
+  if (typeof length === 'number') return `${length}px`;
+  length = length.trim();
+  if (/^\d+$/.test(length)) {
+    return `${length}px`;
+  } else if (/^\d+(px)$/.test(length)) {
+    return length;
+  } else if (/^\d+(%)$/.test(length)) {
+    return length;
+  } else {
+    console.warn('栅格列统一高度输入的格式不正确！');
+    return '';
+  }
+}
+
 export function isNull(value) {
   return value === null || value === undefined;
 }
@@ -622,7 +637,6 @@ function buildRequestConfig(dataSource, DSV, VFR, isSandbox) {
   );
   return chFn.call(null, config, isSandbox, DSV, VFR);
 }
-
 
 export function getDSByName(formConfig, dsName) {
   let resultDS = null;
