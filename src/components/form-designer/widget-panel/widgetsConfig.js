@@ -117,6 +117,56 @@ export const basicFields = [
   //
 ];
 
+export const tableOptions = {
+  type: 'dynamic-table',
+  icon: 'table',
+  pageId: '',
+  pageCode: '',
+  category: 'container',
+  priorName: '动态列表',
+  options: {
+    name: '',
+    customClass: '',
+    colHeight: null,
+    hidden: false,
+    eventUpdateOtherComp: [],
+    isEventUpdateOtherComp: false,
+  },
+};
+
+export const formOptions = {
+  type: 'dynamic-form',
+  icon: 'sub-form',
+  pageId: '',
+  pageCode: '',
+  category: 'container',
+  priorName: '动态表单',
+  options: {
+    name: '',
+    customClass: '',
+    colHeight: null,
+    hidden: false,
+    eventUpdateOtherComp: [],
+    isEventUpdateOtherComp: false,
+  },
+};
+
+export const localCodeOptions = {
+  type: 'local-code',
+  icon: 'slot-field',
+  componentId: '',
+  category: 'container',
+  priorName: '本地组件',
+  options: {
+    name: '',
+    customClass: '',
+    colHeight: null,
+    hidden: false,
+    eventUpdateOtherComp: [],
+    isEventUpdateOtherComp: false,
+  },
+};
+
 export const advancedFields = [
   {
     type: 'picture-upload',

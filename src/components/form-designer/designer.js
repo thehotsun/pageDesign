@@ -15,8 +15,11 @@ import {
 import {
   containers,
   // advancedFields,
-  // basicFields,
   // customFields,
+  basicFields,
+  formOptions,
+  tableOptions,
+  localCodeOptions,
 } from '@/components/form-designer/widget-panel/widgetsConfig.js';
 
 export function createDesigner(vueInstance) {
@@ -787,35 +790,10 @@ export function createDesigner(vueInstance) {
     getContainerByType(typeName) {
       let allWidgets = [
         ...containers,
-        // ...basicFields,
-        // ...advancedFields,
-        // ...customFields,
-        {
-          type: 'dynamic-table',
-          icon: 'table',
-          category: 'container',
-          priorName: '动态列表',
-          options: {
-            name: '',
-            customClass: '',
-            hidden: false,
-            eventUpdateOtherComp: [],
-            isEventUpdateOtherComp: false,
-          },
-        },
-        {
-          type: 'dynamic-form',
-          icon: 'sub-form',
-          category: 'container',
-          priorName: '动态表单',
-          options: {
-            name: '',
-            customClass: '',
-            hidden: false,
-            eventUpdateOtherComp: [],
-            isEventUpdateOtherComp: false,
-          },
-        },
+        ...basicFields,
+        formOptions,
+        tableOptions,
+        localCodeOptions,
       ];
       let foundCon = null;
       allWidgets.forEach((con) => {
@@ -830,9 +808,10 @@ export function createDesigner(vueInstance) {
     getFieldWidgetByType(typeName) {
       let allWidgets = [
         ...containers,
-        // ...basicFields,
-        // ...advancedFields,
-        // ...customFields,
+        ...basicFields,
+        formOptions,
+        tableOptions,
+        localCodeOptions,
       ];
       let foundWidget = null;
       allWidgets.forEach((widget) => {

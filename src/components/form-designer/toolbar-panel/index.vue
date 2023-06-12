@@ -50,7 +50,7 @@
       v-if="showImportJsonDialogFlag" :show-close="true" class="small-padding-dialog" center v-dialog-drag append-to-body
       :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
       <el-alert type="info" :title="i18nt('designer.hint.importJsonHint')" show-icon class="alert-padding"></el-alert>
-      <code-editor :mode="'json'" :readonly="false" v-model="importTemplate"></code-editor>
+      <js-code-editor :mode="'json'" :readonly="false" v-model="importTemplate"></js-code-editor>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="doJsonImport">
           {{ i18nt('designer.hint.import') }}</el-button>
@@ -62,7 +62,7 @@
     <el-dialog :title="i18nt('designer.toolbar.exportJson')" :visible.sync="showExportJsonDialogFlag" append-to-body
       v-if="showExportJsonDialogFlag" :show-close="true" class="small-padding-dialog" center v-dialog-drag
       :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
-      <code-editor :mode="'json'" :readonly="true" v-model="jsonContent"></code-editor>
+      <js-code-editor :mode="'json'" :readonly="true" v-model="jsonContent"></js-code-editor>
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" class="copy-json-btn" :data-clipboard-text="jsonRawContent" @click="copyFormJson">
           {{ i18nt('designer.hint.copyJson') }}</el-button>
@@ -76,7 +76,6 @@
 
 <script>
 import VFormRender from '@/components/form-render/index'
-import CodeEditor from '@/components/code-editor/index'
 import SvgIcon from '@/components/svg-icon'
 import Clipboard from 'clipboard'
 import {
@@ -94,7 +93,6 @@ export default {
   mixins: [i18n],
   components: {
     VFormRender,
-    CodeEditor,
     SvgIcon,
     Clipboard,
   },

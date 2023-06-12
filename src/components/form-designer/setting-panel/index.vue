@@ -67,7 +67,6 @@
 </template>
 
 <script>
-import CodeEditor from '@/components/code-editor/index'
 import PropertyEditors from './property-editor/index'
 import WidgetProperties from './propertyRegister'
 
@@ -81,7 +80,6 @@ export default {
   componentName: "SettingPanel",
   mixins: [i18n],
   components: {
-    CodeEditor,
     ...PropertyEditors,
   },
   props: {
