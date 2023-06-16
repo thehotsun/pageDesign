@@ -353,11 +353,7 @@ export default {
      * @param className
      */
     addCssClass(className) {
-      if (!this.widget.options.customClass) {
-        this.widget.options.customClass = [className]
-      } else {
-        this.widget.options.customClass.push(className)
-      }
+      this.widget.options.customClass = className;
     },
 
     /**

@@ -126,7 +126,6 @@ export default {
     componentList () {
       const options = []
       this.componentDicList.map(item => {
-        // const option = { type: "local-code", icon: 'slot-field', componentId: '', category: "container", priorName: "本地组件", options: { name: "", "customClass": "", colHeight: null, hidden: false, eventUpdateOtherComp: [], isEventUpdateOtherComp: false } }
         const option = cloneDeep(localCodeOptions)
         option.priorName = item.cnName
         option.componentId = item.id

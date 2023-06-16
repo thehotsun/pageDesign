@@ -1,6 +1,6 @@
 <template>
-  <el-form :label-position="labelPosition" :size="size" :class="[customClass, readModeFlag ? 'readonly-mode-form' : '']"
-    class="render-form full-height" :label-width="labelWidth" :validate-on-rule-change="false" :model="formDataModel"
+  <el-form :label-position="labelPosition" :size="size" :class="[readModeFlag ? 'readonly-mode-form' : '']"
+    class="render-form full-height" :label-width="labelWidth" :validate-on-rule-change="false"  :style="customClass" :model="formDataModel"
     ref="renderForm" @submit.native.prevent>
     <template v-for="(widget, index) in widgetList">
       <template v-if="'container' === widget.category">

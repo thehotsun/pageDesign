@@ -1,7 +1,7 @@
 <template>
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
     :index-of-parent-list="indexOfParentList" ref="elCol">
-    <div class="form-container" :class="[selected ? 'selected' : '', customClass]" @click.stop="selectWidget(widget)">
+    <div class="form-container" :class="[selected ? 'selected' : '']" @click.stop="selectWidget(widget)" :style="customClass">
       <VFPreview ref='VFPreview' :isDisabled='true' :hasSubmit='false' :formId="widget.pageId"></VFPreview>
     </div>
 
@@ -41,7 +41,7 @@ export default {
     },
 
     customClass () {
-      return this.widget.options.customClass || ''
+      return this.widget.options.customClass
     },
   },
 

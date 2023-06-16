@@ -1,7 +1,7 @@
 <template>
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
     :index-of-parent-list="indexOfParentList" ref="elCol">
-    <div class="table-container" :class="[selected ? 'selected' : '', customClass]" @click.stop="selectWidget(widget)">
+    <div class="table-container" :class="[selected ? 'selected' : '']" @click.stop="selectWidget(widget)" :style="customClass">
       <table-render :relate-id="widget.pageId" :form-code="widget.pageCode" :previewMode="true"></table-render>
     </div>
 

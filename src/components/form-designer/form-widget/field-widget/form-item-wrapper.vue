@@ -15,8 +15,8 @@
                   :title="field.options.labelTooltip"
                   :size="field.options.size"
                   :rules="rules" :prop="getPropName()"
-                  :class="[selected ? 'selected' : '', labelAlign, customClass, field.options.required ? 'required' : '', !!field.options.labelWrap ? 'label-wrap' : '']"
-                  @click.native.stop="selectField(field)">
+                  :class="[selected ? 'selected' : '', labelAlign, field.options.required ? 'required' : '', !!field.options.labelWrap ? 'label-wrap' : '']"
+                  @click.native.stop="selectField(field)" :style="customClass">
 
       <span v-if="!!field.options.labelIconClass" slot="label" class="custom-label">
         <template v-if="field.options.labelIconPosition === 'front'">
@@ -138,7 +138,7 @@
       },
 
       customClass() {
-        return !!this.field.options.customClass ? this.field.options.customClass.join(' ') : ''
+        return this.field.options.customClass
       },
 
       subFormName() {

@@ -1,6 +1,6 @@
 <template>
   <container-item-wrapper ref="containerWrapper" :widget="widget">
-    <el-row :gutter="widget.options.gutter" class="grid-container full-height" :class="[customClass]" :ref="widget.id"
+    <el-row :gutter="widget.options.gutter" class="grid-container full-height" :style="customClass" :ref="widget.id"
       v-show="!widget.options.hidden">
       <template v-for="(colWidget, colIdx) in widget.cols">
         <PageDesignGrid-col-item :widget="colWidget" :key="colIdx" :parent-list="widget.cols"

@@ -1,5 +1,5 @@
 <template>
-  <el-col class="grid-cell full-height" :class="[customClass]" v-bind="layoutProps" v-show="!widget.options.hidden"
+  <el-col class="grid-cell full-height" :style="customClass" v-bind="layoutProps" v-show="!widget.options.hidden"
     ref="elCol">
     <template v-if="!!widget.widgetList && (widget.widgetList.length > 0)">
       <template v-for="(subWidget, swIdx) in widget.widgetList">

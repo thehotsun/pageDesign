@@ -1,8 +1,8 @@
 <template>
   <div class="form-widget-container">
 
-    <el-form class="full-height-width widget-form" :label-position="labelPosition"
-      :class="[customClass, layoutType + '-layout']" :size="size" :validate-on-rule-change="false">
+    <el-form class="full-height-width widget-form" :label-position="labelPosition" :class="[layoutType + '-layout']"
+      :style="customClass" :size="size" :validate-on-rule-change="false">
 
       <div v-if="designer.widgetList.length === 0" class="no-widget-hint">{{ i18nt('designer.noWidgetHint') }}</div>
 

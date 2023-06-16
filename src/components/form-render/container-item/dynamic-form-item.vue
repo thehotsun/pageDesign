@@ -1,5 +1,5 @@
 <template>
-  <container-item-wrapper :widget="widget" v-show="!widget.options.hidden">
+  <container-item-wrapper :widget="widget" v-show="!widget.options.hidden" ref="elCol" :style="customClass">
     <VFRuntime ref='VFRuntime' :hasSubmit='false' :formId="widget.pageId"></VFRuntime>
   </container-item-wrapper>
 </template>
@@ -33,6 +33,11 @@ export default {
   },
   created () {
     this.initRefList()
+  },
+  computed: {
+    customClass () {
+      return this.widget.options.customClass || ''
+    },
   },
   mounted () {
   },

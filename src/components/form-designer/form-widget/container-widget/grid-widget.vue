@@ -12,8 +12,8 @@
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
     :index-of-parent-list="indexOfParentList" ref="containerWrapper">
 
-    <el-row :gutter="widget.options.gutter" class="grid-container" :class="[selected ? 'selected' : '', customClass]"
-      @click.native.stop="selectWidget(widget)" style="margin: 2px">
+    <el-row :gutter="widget.options.gutter" class="grid-container" :class="[selected ? 'selected' : '', customClass]" 
+      @click.native.stop="selectWidget(widget)" :style="customClass + ';margin: 2px'">
       <template v-for="(colWidget, colIdx) in widget.cols">
         <PageDesignGrid-col-widget :widget="colWidget" :designer="designer" :key="colWidget.id" :parent-list="widget.cols"
           :gird-height="widget.options.colHeight" :index-of-parent-list="colIdx" :parent-widget="widget"

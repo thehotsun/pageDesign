@@ -1,5 +1,5 @@
 <template>
-  <container-item-wrapper :widget="widget" v-show="!widget.options.hidden" ref="elCol">
+  <container-item-wrapper :widget="widget" v-show="!widget.options.hidden" ref="elCol" :style="customClass">
     <table-render ref="tableRender" :relate-id="widget.pageId" :form-code="widget.pageCode"
       :previewMode="previewMode"></table-render>
   </container-item-wrapper>
@@ -31,6 +31,11 @@ export default {
   data () {
     return {
     }
+  },
+  computed: {
+    customClass () {
+      return this.widget.options.customClass || ''
+    },
   },
   created () {
     this.initRefList()

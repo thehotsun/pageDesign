@@ -2,8 +2,8 @@
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
     :index-of-parent-list="indexOfParentList">
     <el-card class="card-container" @click.native.stop="selectWidget(widget)" :shadow="widget.options.shadow"
-      :style="{ width: widget.options.cardWidth + '!important' || '' }"
-      :class="[selected ? 'selected' : '', !!widget.options.folded ? 'folded' : '', customClass]">
+      :style="`${customClass};width: ${widget.options.cardWidth} !important`"
+      :class="[selected ? 'selected' : '', !!widget.options.folded ? 'folded' : '']">
       <div slot="header" class="clear-fix">
         <span>{{ widget.options.label }}</span>
         <i v-if="widget.options.showFold" class="float-right"

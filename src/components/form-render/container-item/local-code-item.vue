@@ -1,5 +1,5 @@
 <template>
-  <container-item-wrapper :widget="widget" v-show="!widget.options.hidden" ref="containerWrapper">
+  <container-item-wrapper :widget="widget" v-show="!widget.options.hidden" ref="elCol" :style="customClass">
     <component :key="widget.options.componentId" ref="localCodeComp" v-if="relateComponent" :is="relateComponent">
     </component>
   </container-item-wrapper>
@@ -47,6 +47,11 @@ export default {
     return {
       relateComponent: null
     }
+  },
+  computed: {
+    customClass () {
+      return this.widget.options.customClass || ''
+    },
   },
   watch: {
     'widget.componentId': {

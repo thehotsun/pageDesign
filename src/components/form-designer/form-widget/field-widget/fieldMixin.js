@@ -723,11 +723,7 @@ export default {
      * @param className
      */
     addCssClass(className) {
-      if (!this.field.options.customClass) {
-        this.field.options.customClass = [className]
-      } else {
-        this.field.options.customClass.push(className)
-      }
+      this.field.options.customClass = className
     },
 
     /**

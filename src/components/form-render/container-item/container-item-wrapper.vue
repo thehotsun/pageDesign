@@ -9,7 +9,7 @@
 -->
 
 <template>
-  <div class="container-wrapper full-height" :class="[customClass]">
+  <div class="container-wrapper full-height">
     <slot></slot>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     customClass () {
-      return !!this.widget.options.customClass ? this.widget.options.customClass.join(' ') : ''
+      return this.widget.options.customClass
     },
 
   }

@@ -1,6 +1,6 @@
 <template>
   <el-col v-if="widget.type === 'PageDesignGrid-col'" class="grid-cell" v-bind="layoutProps"
-    :class="[selected ? 'selected' : '', customClass]" @click.native.stop="selectWidget(widget)" ref="elCol">
+    :class="[selected ? 'selected' : '']" @click.native.stop="selectWidget(widget)" ref="elCol" :style="customClass">
     <draggable :list="widget.widgetList" v-bind="{ group: 'dragGroup', ghostClass: 'ghost', animation: 200 }"
       handle=".drag-handler" @end="(evt) => onGridDragEnd(evt, widget.widgetList)"
       @add="(evt) => onGridDragAdd(evt, widget.widgetList)" @update="onGridDragUpdate" :move="checkContainerMove"

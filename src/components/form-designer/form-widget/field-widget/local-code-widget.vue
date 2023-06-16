@@ -2,8 +2,8 @@
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
     :index-of-parent-list="indexOfParentList" ref="elCol">
 
-    <div class="component-container" :class="[selected ? 'selected' : '', customClass]"
-      @click.stop="selectWidget(widget)">
+    <div class="component-container" :class="[selected ? 'selected' : '']"
+      @click.stop="selectWidget(widget)" :style="customClass">
     </div>
 
   </container-wrapper>
