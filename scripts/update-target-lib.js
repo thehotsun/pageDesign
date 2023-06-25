@@ -2,8 +2,7 @@ const path = require('path');
 const fs = require('fs');
 
 const targetDir =
-  process.argv[2] ||
-  '../../../prj/commondp-web/src/CommonDP/lib/pageDesign';
+  process.argv[2] || '../../../prj/commondp-web/src/CommonDP/lib/pageDesign';
 
 const sourceDir = process.argv[3] || './dist/lib';
 
@@ -60,3 +59,4 @@ const run2 = async (sourceDir, targetDir) => {
   console.log('run2耗时:', ((endTime - startTime) / 1000).toFixed(2) + 's');
 };
 run();
+run2(sourceDir, '../../../prj/cceed2-web/src/CommonDP/lib/pageDesign');

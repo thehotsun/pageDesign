@@ -988,7 +988,7 @@ export function createDesigner(vueInstance) {
       let tempId = generateId();
       newWidget.id = newWidget.type.replace(/-/g, '') + tempId;
       newWidget.options.name = newWidget.id;
-
+      // newWidget.options.customClass = '';
       delete newWidget.displayName;
       return newWidget;
     },
@@ -1016,8 +1016,7 @@ export function createDesigner(vueInstance) {
         newTabPane.options.label = 'tab 1';
         newCon.tabs.push(newTabPane);
       }
-      //newCon.options.customClass = []
-
+      // newCon.options.customClass = ''
       delete newCon.displayName;
       return newCon;
     },

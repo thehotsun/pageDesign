@@ -1,8 +1,10 @@
 <template>
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
     :index-of-parent-list="indexOfParentList" ref="elCol">
-    <div class="form-container" :class="[selected ? 'selected' : '']" @click.stop="selectWidget(widget)" :style="customClass">
-      <VFPreview ref='VFPreview' :isDisabled='true' :hasSubmit='false' :formId="widget.pageId"></VFPreview>
+    <div class="form-container" :class="[selected ? 'selected' : '']" @click.stop="selectWidget(widget)"
+      :style="customClass">
+      <VFPreview ref='VFPreview' :isDisabled='true' :hasSubmit='false' :formId="widget.pageId" class="VFPreview">
+      </VFPreview>
     </div>
 
   </container-wrapper>
@@ -41,7 +43,7 @@ export default {
     },
 
     customClass () {
-      return this.widget.options.customClass
+      return this.widget.options.customClass || ''
     },
   },
 
@@ -73,5 +75,9 @@ div.form-container {
   outline: 2px solid $--color-primary !important;
   box-sizing: border-box;
 
+}
+
+.VFPreview {
+  transform: scale(0.8);
 }
 </style>

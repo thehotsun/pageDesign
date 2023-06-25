@@ -1,8 +1,10 @@
 <template>
   <container-wrapper :designer="designer" :widget="widget" :parent-widget="parentWidget" :parent-list="parentList"
     :index-of-parent-list="indexOfParentList" ref="elCol">
-    <div class="table-container" :class="[selected ? 'selected' : '']" @click.stop="selectWidget(widget)" :style="customClass">
-      <table-render :relate-id="widget.pageId" :form-code="widget.pageCode" :previewMode="true"></table-render>
+    <div class="table-container" :class="[selected ? 'selected' : '']" @click.stop="selectWidget(widget)"
+      :style="customClass">
+      <table-render :relate-id="widget.pageId" :form-code="widget.pageCode" :previewMode="true"
+        class="tablerender"></table-render>
     </div>
 
   </container-wrapper>
@@ -61,7 +63,6 @@ export default {
 
 <style lang="scss" scoped>
 div.table-container {
-
   // padding: 5px;
   border: 1px dashed #336699;
   box-sizing: border-box;
@@ -75,4 +76,8 @@ div.table-container {
   outline: 2px solid $--color-primary !important;
   box-sizing: border-box;
 }
-</style>
+
+.tablerender {
+  transform: scale(0.95);
+
+}</style>
