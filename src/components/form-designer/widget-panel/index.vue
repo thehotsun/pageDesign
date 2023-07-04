@@ -59,6 +59,17 @@
               </draggable>
             </el-collapse-item>
 
+            <el-collapse-item name="6" title="routerView">
+              <draggable tag="ul" :list="routerViewList" :group="{ name: 'dragGroup', pull: 'clone', put: false }"
+                :move="checkFieldMove" :clone="handleFieldWidgetClone" ghost-class="ghost" :sort="false">
+                <li class="field-widget-item" v-for="(routerViewOptions, index) in routerViewList" :key="index"
+                  :title="routerViewOptions.displayName" @dblclick="addFieldByDbClick(routerViewOptions)">
+                  <span><svg-icon :icon-class="routerViewOptions.icon" class-name="color-svg-icon" />{{
+                    routerViewOptions.priorName }}</span>
+                </li>
+              </draggable>
+            </el-collapse-item>
+
           </el-collapse>
 
         </el-tab-pane>
@@ -73,7 +84,7 @@
 <script>
 import Draggable from 'vuedraggable'
 import SvgIcon from '@/components/svg-icon'
-import { containers, basicFields, formOptions, tableOptions, localCodeOptions } from "./widgetsConfig"
+import { containers, basicFields, formOptions, tableOptions, routerViewOptions, localCodeOptions } from "./widgetsConfig"
 import i18n, { getLocale } from "@/utils/i18n"
 import { cloneDeep } from "lodash"
 
@@ -112,11 +123,12 @@ export default {
     return {
       designerConfig: this.getDesignerConfig(),
       firstTab: 'componentLib',
-      activeNames: ['1', '2', '3', '4', '5'],
+      activeNames: ['1', '2', '3', '4', '5', '6'],
       tableList: [],
       formList: [],
       containers,
       basicFields,
+      routerViewList: [routerViewOptions],
     }
   },
   computed: {

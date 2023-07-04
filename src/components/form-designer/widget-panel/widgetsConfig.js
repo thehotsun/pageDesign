@@ -134,6 +134,21 @@ export const tableOptions = {
   },
 };
 
+export const routerViewOptions = {
+  type: 'router-view',
+  icon: 'rich-editor-field',
+  category: 'container',
+  priorName: 'routerView',
+  options: {
+    name: '',
+    customClass: '',
+    colHeight: null,
+    hidden: false,
+    eventUpdateOtherComp: [],
+    isEventUpdateOtherComp: false,
+  },
+};
+
 export const formOptions = {
   type: 'dynamic-form',
   icon: 'sub-form',
