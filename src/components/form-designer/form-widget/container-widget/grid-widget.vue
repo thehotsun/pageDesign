@@ -103,7 +103,6 @@ export default {
     },
     setWrapHeight (val, highest) {
       const dom = this.$refs.containerWrapper?.$el;
-      console.log(val, 'colHeight');
       if (dom) {
         const defaultHeight = this.widget.options?.defaultHeight?.value || 0;
         let height

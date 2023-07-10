@@ -11,7 +11,6 @@ export default {
       async handler(val) {
         await this.$nextTick();
         const dom = this.$refs.elCol?.$el;
-        console.log(val, 'colcolHeight');
         if (dom) {
           if (val) {
             dom.style.height = formatterWidthOrHeightStyle(val);

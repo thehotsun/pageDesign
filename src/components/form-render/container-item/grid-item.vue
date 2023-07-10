@@ -68,7 +68,6 @@ export default {
       async handler (val) {
         await this.$nextTick()
         const dom = this.$refs.containerWrapper?.$el;
-        console.log(val, dom, this.$refs.containerWrapper, 'colHeight');
         if (dom) {
           const defaultHeight = this.widget.options?.defaultHeight?.value;
           let height
