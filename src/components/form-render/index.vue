@@ -97,7 +97,7 @@ export default {
   },
   data () {
     return {
-      formJsonObj: this.formJson,
+      formJsonObj: buildDefaultFormJson(),
 
       formDataModel: {
         //
